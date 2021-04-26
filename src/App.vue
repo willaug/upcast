@@ -1,10 +1,6 @@
 <template>
   <div>
-    <h1 align="center">Inicial</h1>
-    <br>
-    <br>
-    <br>
-    <ul>
+    <h1>Olá</h1>
   </div>
 </template>
 
