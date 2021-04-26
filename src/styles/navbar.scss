@@ -1,18 +1,18 @@
 @import 'variables.scss';
 
 header {
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  position: fixed;
 }
 
 .nav {
   height: 75px;
-  align-items: center;
   display: flex;
-  justify-content: space-between;
   position: relative;
+  align-items: center;
+  justify-content: space-between;
 
   img {
     width: 110px;
@@ -34,4 +34,88 @@ header {
       margin-bottom: 0;
     }
   }
+}
+
+nav {
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 100%;
+  padding: 20px;
+  z-index: 7000;
+  overflow: auto;
+  position: fixed;
+  max-width: 290px;
+  box-sizing: border-box;
+  background: $bg-color;
+
+  img {
+    left: 50%;
+    width: 80%;
+    height: auto;
+    max-width: 140px;
+    position: relative;
+    transform: translateX(-50%);
+  }
+
+  hr {
+    width: 100%;
+    height: 1px;
+    margin: 20px 0;
+    background: $black-color;
+  }
+
+  ul {
+    width: 100%;
+    margin-top: 40px;
+
+    li {
+      color: $gray-color;
+      font-size: 16px;
+      
+      a {
+        display: block;
+        font-weight: 500;
+        color: $gray-color;
+        padding: 13px 23px;
+        border-radius: 8px;
+        position: relative;
+        letter-spacing: 0.2px;
+        background-color: transparent;
+
+        p {
+          margin-left: 38px;
+        }
+
+        .fas {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 23px;
+        }
+      }      
+    }
+  }
+}
+
+.auth-link {
+  margin-bottom: 30px;
+  color: $primary-color;
+  font-weight: 500;
+  border: 1px solid $primary-color;
+}
+
+.link-enabled {
+  background-color: $black-color;
+  color: $light-color;
+}
+
+.menu-background {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3000;
+  position: fixed;
+  background: rgba($color: #000000, $alpha: 0.5);
 }
