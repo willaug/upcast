@@ -1,0 +1,25 @@
+@import './variables.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  list-style: none;
+  text-decoration: none;
+  color: red;
+  font-family: $montserrat;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: $bg-color;
+}
+
+.container {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+}

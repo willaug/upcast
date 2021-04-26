@@ -1,17 +1,16 @@
 import Vue from 'vue'
-import VueMeta from 'vue-meta'
 import App from './App.vue'
-// import router from './router'
-import store from './store'
+import router from './routes'
+// import store from './store'
 import './plugins/axios'
+import './plugins/meta'
+import './styles/template.scss'
 
 Vue.config.productionTip = false
 Vue.prototype.$api = process.env.VUE_APP_API_URL
 
-Vue.use(VueMeta)
-
 new Vue({
-  // router,
-  store,
+  router,
+  // store,
   render: h => h(App)
 }).$mount('#app')
