@@ -1,7 +1,10 @@
 <template>
   <div>
     <navbar v-if="route !== 'SignUp' && route !== 'SignIn'" />
-    <transition name="fade">
+    <transition
+      name="fade"
+      mode="out-in"
+    >
       <router-view />
     </transition>
   </div>
@@ -21,6 +24,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .3s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
 </style>

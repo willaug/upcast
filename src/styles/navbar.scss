@@ -4,6 +4,8 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 2000;
+  background: rgba($color: $bg-color, $alpha: .9);
   position: fixed;
 }
 
@@ -12,6 +14,7 @@ header {
   display: flex;
   position: relative;
   align-items: center;
+  z-index: 7000;
   justify-content: space-between;
 
   img {
@@ -43,7 +46,7 @@ nav {
   width: 90%;
   height: 100%;
   padding: 20px;
-  z-index: 7000;
+  z-index: 9000;
   overflow: auto;
   position: fixed;
   max-width: 290px;
@@ -117,7 +120,7 @@ nav {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 3000;
+  z-index: 8000;
   position: fixed;
   background: rgba($color: #000000, $alpha: 0.5);
 }
