@@ -6,7 +6,7 @@
 
 export default {
   metaInfo: {
-    title: 'Upcast - Ouça podcast quanto quiser.'
+    title: 'Ouça podcast quanto quiser • Upcast'
   }
 }
 </script>

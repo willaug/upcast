@@ -31,7 +31,7 @@
     </button>
     <router-link
       class="link"
-      :to="{ name: 'Home' }"
+      :to="{ name: 'SignIn' }"
     >
       Já possui uma conta?
     </router-link>
@@ -41,7 +41,7 @@
 <script>
 export default {
   metaInfo: {
-    title: 'Upcast - Criar conta gratuita'
+    title: 'Criar conta gratuita • Upcast'
   }
 }
 </script>

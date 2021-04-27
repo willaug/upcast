@@ -1,7 +1,9 @@
 <template>
   <div>
     <navbar v-if="route !== 'SignUp' && route !== 'SignIn'" />
-    <router-view />
+    <transition name="fade">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -18,3 +20,7 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>

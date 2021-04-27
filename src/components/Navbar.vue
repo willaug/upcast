@@ -37,7 +37,7 @@
           <li>
             <router-link
               v-wave
-              to="/authenticate"
+              :to="{ name: 'SignIn' }"
               class="auth-link"
             >
               <i class="fas fa-sign-in-alt" />
