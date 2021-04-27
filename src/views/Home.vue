@@ -3,6 +3,7 @@
 </template>-->
 
 <script>
+
 export default {
   metaInfo: {
     title: 'Upcast - Ouça podcast quanto quiser.'

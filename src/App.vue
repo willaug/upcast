@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar />
+    <navbar v-if="route !== 'SignUp' && route !== 'SignIn'" />
     <router-view />
   </div>
 </template>
@@ -10,6 +10,11 @@ import Navbar from './components/Navbar'
 
 export default {
   name: 'App',
-  components: { Navbar }
+  components: { Navbar },
+  computed: {
+    route () {
+      return this.$route.name
+    }
+  }
 }
 </script>
