@@ -17,10 +17,15 @@ header {
   z-index: 7000;
   justify-content: space-between;
 
-  img {
-    width: 110px;
-    height: auto;
+  a {
+    height: 35px;
+
+    img {
+      width: auto;
+      height: 35px;
+    }
   }
+
 
   .hamburguer {
     width: 24px;

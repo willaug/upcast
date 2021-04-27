@@ -1,15 +1,26 @@
 <template>
   <div class="container content">
-    <div class="gradient">
-      Ouça o quanto quiser!
-    </div>
     <div class="grid-container">
-      <h1>Conheça novos programas</h1>
+      <ul>
+        <li v-wave>
+          <router-link
+            to="/teste"
+            class="icon"
+          >
+            <img
+              src="/icons/icon.svg"
+              alt="Miniatura da categoria"
+            >
+            <p>Convívio e espiritualidade</p>
+          </router-link>
+        </li>
+      </ul>
+      <h1>Encontrar programas</h1>
       <ul>
         <li v-wave>
           <router-link to="/teste">
             <img
-              src="https://picsum.photos/340"
+              src="https://picsum.photos/380"
               alt="Miniatura do programa"
             >
             <p>Flow Podcast</p>
@@ -17,22 +28,13 @@
         </li>
       </ul>
     </div>
-    <router-link
-      v-wave
-      :to="{ name: 'Explore' }"
-      class="gradient bg-image"
-    >
-      <i class="fas fa-podcast" />
-      Explorar conteúdos
-    </router-link>
   </div>
 </template>
 
 <script>
-
 export default {
   metaInfo: {
-    title: 'Ouça o quanto quiser • Upcast'
+    title: 'Explorar novos conteúdos • Upcast'
   }
 }
 </script>

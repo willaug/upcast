@@ -2,10 +2,12 @@
   <div>
     <header>
       <div class="container nav">
-        <img
-          src="/icons/logo.svg"
-          alt="Upcast"
-        >
+        <router-link :to="{ name: 'Home' }">
+          <img
+            src="/icons/logo.svg"
+            alt="Upcast"
+          >
+        </router-link>
         <div
           class="hamburguer"
           @click="changeMenu"
@@ -47,7 +49,7 @@
           <li>
             <router-link
               v-wave
-              to="/"
+              :to="{ name: 'Home' }"
               exact-active-class="link-enabled"
             >
               <i class="fas fa-home" />
@@ -57,7 +59,7 @@
           <li>
             <router-link
               v-wave
-              to="/explore"
+              :to="{ name: 'Explore' }"
               exact-active-class="link-enabled"
             >
               <i class="fas fa-compass" />
