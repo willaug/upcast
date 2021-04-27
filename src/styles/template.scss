@@ -16,6 +16,18 @@ body {
   background: $bg-color;
 }
 
+.pb-4 {
+  padding-bottom: 20px;
+}
+
+.title {
+  font-size: 23px;
+  letter-spacing: 0.4px;
+  font-family: $poppins;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
 .container {
   position: relative;
   left: 50%;

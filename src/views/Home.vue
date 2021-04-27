@@ -3,8 +3,8 @@
     <div class="gradient">
       Ouça o quanto quiser!
     </div>
-    <div class="grid-container">
-      <h1>Conheça novos programas</h1>
+    <div class="main-container">
+      <h2>Conheça:</h2>
       <ul>
         <li v-wave>
           <router-link to="/teste">
@@ -17,14 +17,6 @@
         </li>
       </ul>
     </div>
-    <router-link
-      v-wave
-      :to="{ name: 'Explore' }"
-      class="gradient bg-image"
-    >
-      <i class="fas fa-podcast" />
-      Explorar conteúdos
-    </router-link>
   </div>
 </template>
 
