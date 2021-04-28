@@ -66,7 +66,7 @@
           </router-link>
         </li>
       </ul>
-      <h2>Programas recentes:</h2>
+      <h2>Programas recentes</h2>
       <ul>
         <li v-wave>
           <router-link to="/teste">

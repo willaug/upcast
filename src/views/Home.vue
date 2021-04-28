@@ -4,7 +4,7 @@
       Ouça o quanto quiser!
     </div>
     <div class="main-container">
-      <h2>Conheça:</h2>
+      <h2>Conheça</h2>
       <ul>
         <li v-wave>
           <router-link to="/teste">
