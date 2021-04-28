@@ -8,5 +8,10 @@ export default [
     path: '/login',
     name: 'SignIn',
     component: () => import(/* webpackChunkName: "signup" */ '../views/Account/SignIn.vue')
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: () => import(/* webpackChunkName: "account" */ '../views/Account/Account.vue')
   }
 ]
