@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar v-if="route !== 'SignUp' && route !== 'SignIn'" />
+    <navbar v-if="!pagesWithoutHeader.includes(route)" />
     <transition
       name="fade"
       mode="out-in"
@@ -16,6 +16,13 @@ import Navbar from './components/Navbar'
 export default {
   name: 'App',
   components: { Navbar },
+  data () {
+    return {
+      pagesWithoutHeader: [
+        'SignUp', 'SignIn', '404'
+      ]
+    }
+  },
   computed: {
     route () {
       return this.$route.name
