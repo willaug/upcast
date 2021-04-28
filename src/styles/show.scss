@@ -6,11 +6,18 @@
   position: relative;
   margin-bottom: 20px;
 
-  img {
+  .photo {
     width: 100px;
-    height: auto;
+    height: 100px;
     border-radius: 8px;
-    object-fit: cover;
+    overflow: hidden;
+    background-color: $dark-color;
+
+    img {
+      width: 100px;
+      height: auto;
+      object-fit: cover;
+    }
   }
 
   .thumb-content {
@@ -63,9 +70,32 @@
 }
 
 .about {
-  margin: 23px 0;
+  margin: 23px 0 15px 0;
   font-size: 14px;
   color: $gray-color;
   font-weight: 400;
   text-align: left;
+}
+
+.created {
+  margin-bottom: 28px;
+  font-size: 13px;
+  color: $light-color;
+  letter-spacing: 0.4px;
+}
+
+.episode-title {
+  max-width: 70%;
+}
+
+.time {
+  font-size: 14px;
+  color: $gray-color;
+  font-family: $poppins;
+  letter-spacing: 0.5px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 12px;
+  text-align: right;
 }

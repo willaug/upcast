@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Account from './account'
 import Show from './show'
+import Episode from './episode'
 
 Vue.use(VueRouter)
 
@@ -23,7 +25,8 @@ const routes = [
     component: () => import(/* webpackChunkName: "category" */ '../views/Category.vue')
   },
   ...Account,
-  ...Show
+  ...Show,
+  ...Episode
 ]
 
 const router = new VueRouter({
