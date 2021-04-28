@@ -89,7 +89,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../styles/index/home.scss';
-</style>

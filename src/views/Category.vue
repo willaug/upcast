@@ -1,15 +1,15 @@
 <template>
   <div class="container content">
-    <div class="gradient">
-      Ouça o quanto quiser!
-    </div>
     <div class="main-container">
-      <h2>Conheça:</h2>
+      <h1 class="title">
+        Categoria X
+      </h1>
+      <h2>Conheça programas:</h2>
       <ul>
         <li v-wave>
           <router-link to="/teste">
             <img
-              src="https://picsum.photos/340"
+              src="https://picsum.photos/380"
               alt="Miniatura do programa"
             >
             <p>Flow Podcast</p>
@@ -21,10 +21,9 @@
 </template>
 
 <script>
-
 export default {
   metaInfo: {
-    title: 'Ouça o quanto quiser • Upcast'
+    title: 'Categoria X • Upcast'
   }
 }
 </script>
