@@ -87,26 +87,6 @@
               <p>Perfil</p>
             </router-link>
           </li>
-          <li>
-            <router-link
-              v-wave
-              to="/users/x/playlists"
-              exact-active-class="link-enabled"
-            >
-              <i class="fas fa-headphones" />
-              <p>Playlists</p>
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              v-wave
-              to="/users/x/shows"
-              exact-active-class="link-enabled"
-            >
-              <i class="fas fa-microphone" />
-              <p>Programas</p>
-            </router-link>
-          </li>
         </ul>
       </nav>
     </transition>

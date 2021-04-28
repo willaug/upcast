@@ -1,39 +1,5 @@
 @import './variables.scss';
 
-.thumb-title {
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-bottom: 20px;
-
-  .photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: $dark-color;
-
-    img {
-      width: 100px;
-      height: auto;
-      object-fit: cover;
-    }
-  }
-
-  .thumb-content {
-    margin-left: 20px;
-    color: $light-color;
-
-    h1 {
-      margin: 0;
-    }
-
-    p {
-      font-size: 13px;
-    }
-  }
-}
-
 .line-content {
   display: flex;
   align-items: center;
@@ -75,13 +41,6 @@
   color: $gray-color;
   font-weight: 400;
   text-align: left;
-}
-
-.created {
-  margin-bottom: 28px;
-  font-size: 13px;
-  color: $light-color;
-  letter-spacing: 0.4px;
 }
 
 .episode-title {

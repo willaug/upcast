@@ -24,6 +24,12 @@ const routes = [
     props: true,
     component: () => import(/* webpackChunkName: "category" */ '../views/Category.vue')
   },
+  {
+    path: '/users/:user',
+    name: 'User',
+    props: true,
+    component: () => import(/* webpackChunkName: "user" */ '../views/User.vue')
+  },
   ...Account,
   ...Show,
   ...Episode

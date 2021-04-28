@@ -11,7 +11,9 @@
         <h1 class="title">
           WA Podcast
         </h1>
-        <p>Autoria do WA</p>
+        <router-link to="/clovis">
+          Autoria do WA
+        </router-link>
       </div>
     </div>
     <div class="line-content">
@@ -29,7 +31,7 @@
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.Vivamus dictum eu libero id gravida. Ut ac elementum lorem.
     </p>
     <p class="created">
-      Criado em 12/03/2021
+      Criado em 12/03/2021 • 30 seguidores
     </p>
     <div class="main-container">
       <ul>

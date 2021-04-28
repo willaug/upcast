@@ -6,6 +6,10 @@
   font-weight: 600;
   font-family: $poppins;
   color: $gray-color;
+
+  a {
+    color: $primary-color;
+  }
 }
 
 .about {

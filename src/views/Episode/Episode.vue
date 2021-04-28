@@ -5,7 +5,10 @@
         Conversa com pessoa X no dia Y
       </h1>
       <p class="shows">
-        WA Podcast • 13/04/2021 • 01:15:30
+        <router-link to="/teste">
+          WA Podcast
+        </router-link>
+        • 13/04/2021 • 01:15:30
       </p>
       <p class="about">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.Vivamus dictum eu libero id gravida. Ut ac elementum lorem.
