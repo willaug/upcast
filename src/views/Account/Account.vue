@@ -29,7 +29,7 @@
     </table>
     <router-link
       v-wave
-      to="/"
+      :to="{ name: 'EditAccount' }"
       class="button-settings"
     >
       Editar perfil

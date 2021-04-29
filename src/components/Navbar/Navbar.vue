@@ -127,5 +127,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/navbar.scss';
+  @import './navbar.scss';
 </style>

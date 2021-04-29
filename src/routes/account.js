@@ -13,5 +13,10 @@ export default [
     path: '/account',
     name: 'Account',
     component: () => import(/* webpackChunkName: "account" */ '../views/Account/Account.vue')
+  },
+  {
+    path: '/account/edit',
+    name: 'EditAccount',
+    component: () => import(/* webpackChunkName: "edit_account" */ '../views/Account/EditAccount.vue')
   }
 ]
