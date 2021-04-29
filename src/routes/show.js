@@ -9,5 +9,11 @@ export default [
     name: 'Show',
     props: true,
     component: () => import(/* webpackChunkName: "show" */ '../views/Show/Show.vue')
+  },
+  {
+    path: '/shows/:show/edit',
+    name: 'EditShow',
+    props: true,
+    component: () => import(/* webpackChunkName: "edit_show" */ '../views/Show/EditShow.vue')
   }
 ]
