@@ -6,10 +6,14 @@
         alt="Upcast"
       >
     </router-link>
-    <h1>Recuperar conta</h1>
+    <h1>Adicionar nova senha</h1>
     <input
-      type="email"
-      placeholder="Adicione um e-mail"
+      type="password"
+      placeholder="Adicione uma nova senha"
+    >
+    <input
+      type="password"
+      placeholder="Confirme a nova senha"
     >
     <button
       v-wave
@@ -23,11 +27,11 @@
 <script>
 export default {
   metaInfo: {
-    title: 'Recuperar conta • Upcast'
+    title: 'Adicionar nova senha • Upcast'
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  @import '../../styles/account/form.scss';
+  @import '../../../styles/form.scss';
 </style>
