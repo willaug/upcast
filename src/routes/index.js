@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Account from './account'
 import Show from './show'
 import Episode from './episode'
+import Playlist from './playlist'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,7 @@ const routes = [
   ...Account,
   ...Show,
   ...Episode,
+  ...Playlist,
   {
     path: '*',
     name: '404',

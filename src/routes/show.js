@@ -2,7 +2,6 @@ export default [
   {
     path: '/shows/create',
     name: 'ShowCreate',
-    props: true,
     component: () => import(/* webpackChunkName: "show_create" */ '../views/Show/ShowCreate.vue')
   },
   {
