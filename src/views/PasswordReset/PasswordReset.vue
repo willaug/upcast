@@ -6,14 +6,10 @@
         alt="Upcast"
       >
     </router-link>
-    <h1>Entrar</h1>
+    <h1>Recuperar conta</h1>
     <input
       type="email"
-      placeholder="Digite seu e-mail"
-    >
-    <input
-      type="password"
-      placeholder="Digite sua senha"
+      placeholder="Adicione um e-mail"
     >
     <button
       v-wave
@@ -21,25 +17,13 @@
     >
       Continuar
     </button>
-    <router-link
-      class="link"
-      :to="{ name: 'PasswordReset' }"
-    >
-      Esqueceu a senha?
-    </router-link>
-    <router-link
-      class="link"
-      :to="{ name: 'SignUp' }"
-    >
-      Criar conta
-    </router-link>
   </form>
 </template>
 
 <script>
 export default {
   metaInfo: {
-    title: 'Entrar • Upcast'
+    title: 'Recuperar conta • Upcast'
   }
 }
 </script>

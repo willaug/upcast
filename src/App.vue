@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       pagesWithoutHeader: [
-        'SignUp', 'SignIn', '404'
+        'SignUp', 'SignIn', '404', 'PasswordReset', 'AddNewPassword'
       ]
     }
   },

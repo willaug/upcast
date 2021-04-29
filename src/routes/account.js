@@ -18,5 +18,16 @@ export default [
     path: '/account/edit',
     name: 'EditAccount',
     component: () => import(/* webpackChunkName: "edit_account" */ '../views/Account/EditAccount.vue')
+  },
+  {
+    path: '/password-reset',
+    name: 'PasswordReset',
+    component: () => import(/* webpackChunkName: "password-reset" */ '../views/PasswordReset/PasswordReset.vue')
+  },
+  {
+    path: '/password-reset/:passwordReset',
+    name: 'AddNewPassword',
+    props: true,
+    component: () => import(/* webpackChunkName: "add_new_password" */ '../views/PasswordReset/AddNewPassword.vue')
   }
 ]
