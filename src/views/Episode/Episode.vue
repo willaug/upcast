@@ -13,6 +13,13 @@
       <p class="about">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.Vivamus dictum eu libero id gravida. Ut ac elementum lorem.
       </p>
+      <router-link
+        v-wave
+        to="/a"
+        class="button-edit"
+      >
+        <i class="fas fa-pencil-alt" /> Editar
+      </router-link>
       <button
         v-wave
         type="button"

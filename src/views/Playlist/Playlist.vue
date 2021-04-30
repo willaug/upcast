@@ -9,6 +9,13 @@
     <p class="created">
       Criado em 12/03/2021 • Alterado em 13/04/2021
     </p>
+    <router-link
+      v-wave
+      to="/a"
+      class="button-edit"
+    >
+      <i class="fas fa-pencil-alt" /> Editar
+    </router-link>
     <div class="main-container">
       <ul>
         <li v-wave>

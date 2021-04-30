@@ -41,6 +41,19 @@
     letter-spacing: .6px;
   }
 
+  .button-remove-item {
+    background: $bg-color;
+    color: $white-color;
+    font-size: 10px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    border-radius: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 12px;
+  }  
+
   input[type=text], input[type=password], input[type=email], textarea {
     padding: 10.5px 15px;
     font-size: 14px;

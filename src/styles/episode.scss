@@ -15,6 +15,7 @@
 .about {
   color: $gray-color;
   font-size: 14px;
+  margin-bottom: 15px;
 }
 
 .button-play {
@@ -24,6 +25,7 @@
   transform: translateX(-50%);
   font-size: 50px;
   width: 90px;
+  display: block;
   border-radius: 90px;
   color: $primary-color;
   cursor: pointer;

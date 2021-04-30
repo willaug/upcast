@@ -16,6 +16,32 @@
       >
         Salvar
       </button>
+      <hr>
+      <div class="main-container">
+        <ul>
+          <li v-wave>
+            <router-link to="/teste">
+              <p class="just-title episode-title">
+                <i class="fas fa-play" />
+                Conversa com pessoa X no dia Y
+              </p>
+              <button
+                type="button"
+                class="button-remove-item"
+              >
+                <i class="fas fa-times" />
+              </button>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <button
+        v-wave
+        type="button"
+        class="button-delete"
+      >
+        Deletar playlist
+      </button>
     </form>
   </div>
 </template>

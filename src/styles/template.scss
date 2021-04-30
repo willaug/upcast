@@ -181,3 +181,19 @@ body {
   color: $light-color;
   letter-spacing: 0.4px;
 }
+
+.button-edit {
+  border: 1px solid $dark-color;
+  padding: 6px 15px;
+  font-size: 15px;
+  color: $white-color;
+  font-weight: 500;
+  border-radius: 100px;
+  background: $dark-color;
+  display: inline-block;
+  margin: 0 0 10px 0;
+
+  .fas {
+    margin-right: 10px;
+  }
+}
