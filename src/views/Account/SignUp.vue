@@ -30,17 +30,21 @@
     >
       Continuar
     </button>
-    <ul
-      v-if="errors.length > 0"
-      class="error-list"
+    <transition
+      name="fade"
     >
-      <li
-        v-for="(error, index) in errors"
-        :key="index"
+      <ul
+        v-if="errors.length > 0"
+        class="error-list"
       >
-        {{ error }}
-      </li>
-    </ul>
+        <li
+          v-for="(error, index) in errors"
+          :key="index"
+        >
+          {{ error }}
+        </li>
+      </ul>
+    </transition>
     <router-link
       class="link"
       :to="{ name: 'SignIn' }"
@@ -77,7 +81,19 @@ export default {
 
         $router.push({ name: 'SignIn' })
       } catch (err) {
-        this.errors = err.response.data
+        if (err.response) {
+          const response = err.response.data
+          const responseIsArray = Array.isArray(response)
+
+          if (responseIsArray) {
+            this.errors = response
+          } else {
+            this.errors.push(response)
+          }
+        } else {
+          const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+          this.errors.push(message)
+        }
       } finally {
         this.disabled = false
       }
