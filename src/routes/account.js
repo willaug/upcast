@@ -12,7 +12,8 @@ export default [
   {
     path: '/account',
     name: 'Account',
-    component: () => import(/* webpackChunkName: "account" */ '../views/Account/Account.vue')
+    component: () => import(/* webpackChunkName: "account" */ '../views/Account/Account.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/account/edit',

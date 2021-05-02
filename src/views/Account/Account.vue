@@ -5,18 +5,18 @@
     </h1>
     <div class="photo">
       <img
-        src="https://picsum.photos/320"
+        :src="$api + account"
         alt="Miniatura do usuário"
       >
     </div>
     <table>
       <tr>
         <td>Nome</td>
-        <td>XXXXX</td>
+        <td>{{ account }}</td>
       </tr>
       <tr>
         <td>E-mail</td>
-        <td>lorem@ipsum.com.br</td>
+        <td>{{ account }}</td>
       </tr>
       <tr>
         <td>Criou em</td>
@@ -41,6 +41,14 @@
 export default {
   metaInfo: {
     title: 'Minha conta • Upcast'
+  },
+  computed: {
+    account () {
+      return this.$store.state.accountData
+    }
+  },
+  created () {
+    this.$store.dispatch('SignInWithToken')
   }
 }
 </script>

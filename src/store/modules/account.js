@@ -2,8 +2,14 @@ import Vue from 'vue'
 
 export default {
   state: {
-    auth: {},
-    accountData: {}
+    accountData: {
+      uid: null,
+      username: null,
+      email: null,
+      photo: null,
+      createdAt: null,
+      updatedAt: null
+    }
   },
   mutations: {
     SignIn (state, token) {
@@ -26,21 +32,38 @@ export default {
             createdAt,
             updatedAt
           }
-
-          state.auth = auth
-
-          console.log(state.accountData)
-        }).catch(err => {
-          console.log(err)
+        }).catch(() => {
+          state.accountData = {
+            uid: null,
+            username: null,
+            email: null,
+            photo: null,
+            createdAt: null,
+            updatedAt: null
+          }
         })
-      } else {
-        console.log('vc não tem token')
       }
     }
   },
   actions: {
-    SignInWithToken ({ commit }, token) {
+    SignInWithToken ({ commit }) {
+      const token = localStorage.getItem('ACCESS_TOKEN')
       commit('SignIn', token)
+    },
+    async TokenIsValid () {
+      const token = localStorage.getItem('ACCESS_TOKEN')
+      const auth = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+
+      try {
+        await Vue.prototype.$axios('/account', auth)
+        return true
+      } catch {
+        return false
+      }
     }
   }
 }
