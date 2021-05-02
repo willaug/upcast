@@ -27,6 +27,10 @@ export default {
     route () {
       return this.$route.name
     }
+  },
+  beforeCreate () {
+    const token = localStorage.getItem('ACCESS_TOKEN')
+    this.$store.dispatch('SignInWithToken', token)
   }
 }
 </script>
