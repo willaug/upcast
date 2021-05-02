@@ -65,5 +65,10 @@ export default {
         return false
       }
     }
+  },
+  getters: {
+    getAccount (state) {
+      return state.accountData
+    }
   }
 }

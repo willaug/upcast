@@ -5,26 +5,27 @@
     </h1>
     <div class="photo">
       <img
-        :src="$api + account"
+        :src="$api + account.photo"
+        :class="{ photoIcon }"
         alt="Miniatura do usuário"
       >
     </div>
     <table>
       <tr>
         <td>Nome</td>
-        <td>{{ account }}</td>
+        <td>{{ account.username }}</td>
       </tr>
       <tr>
         <td>E-mail</td>
-        <td>{{ account }}</td>
+        <td>{{ account.email }}</td>
       </tr>
       <tr>
         <td>Criou em</td>
-        <td>XX/XX/XXXX às 22:20</td>
+        <td>{{ account.createdAt | DATETIME }}</td>
       </tr>
       <tr>
         <td>Alterou em</td>
-        <td>XX/XX/XXXX às 22:20</td>
+        <td>{{ account.updatedAt | DATETIME }}</td>
       </tr>
     </table>
     <router-link
@@ -44,11 +45,20 @@ export default {
   },
   computed: {
     account () {
-      return this.$store.state.accountData
+      return this.$store.getters.getAccount
     }
   },
   created () {
     this.$store.dispatch('SignInWithToken')
+  },
+  methods: {
+    photoIcon () {
+      if (this.account.photo.includes('.svg')) {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>
