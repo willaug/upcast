@@ -6,7 +6,7 @@
     <div class="photo">
       <img
         :src="$api + account.photo"
-        :class="{ photoIcon }"
+        :class="{ photoIcon: photoIcon === true }"
         alt="Miniatura do usuário"
       >
     </div>

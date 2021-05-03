@@ -3,7 +3,12 @@
     <h1 class="title">
       Editar conta
     </h1>
-    <upload />
+    <upload
+      :photo-url="account.photo"
+      :patch-url="'/account'"
+      :push="'Account'"
+      :auth="auth"
+    />
     <form class="edit-form">
       <label for="name">Nome</label>
       <input
@@ -96,6 +101,9 @@ export default {
   computed: {
     account () {
       return this.$store.getters.getAccount
+    },
+    auth () {
+      return this.$store.getters.getAuth
     }
   },
   created () {
@@ -103,10 +111,8 @@ export default {
   },
   methods: {
     async sendNewData () {
-      const { account, password, newPassword, confirmPassword, $axios, $router, $store } = this
+      const { auth, account, password, newPassword, confirmPassword, $axios, $router } = this
       const data = {}
-
-      const auth = $store.getters.getAuth
 
       this.errors = []
       this.disabled = true
