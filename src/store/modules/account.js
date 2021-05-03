@@ -9,7 +9,8 @@ export default {
       photo: null,
       createdAt: null,
       updatedAt: null
-    }
+    },
+    auth: {}
   },
   mutations: {
     SignIn (state, token) {
@@ -19,6 +20,8 @@ export default {
             Authorization: `Bearer ${token}`
           }
         }
+
+        state.auth = auth
 
         Vue.prototype.$axios('/account', auth).then(res => {
           const { uid, username, email, createdAt, updatedAt } = res.data.response
@@ -52,16 +55,21 @@ export default {
     },
     async TokenIsValid () {
       const token = localStorage.getItem('ACCESS_TOKEN')
-      const auth = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
 
-      try {
-        await Vue.prototype.$axios('/account', auth)
-        return true
-      } catch {
+      if (token !== undefined && token !== null) {
+        const auth = {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+
+        try {
+          await Vue.prototype.$axios('/account', auth)
+          return true
+        } catch {
+          return false
+        }
+      } else {
         return false
       }
     }
@@ -69,6 +77,9 @@ export default {
   getters: {
     getAccount (state) {
       return state.accountData
+    },
+    getAuth (state) {
+      return state.auth
     }
   }
 }

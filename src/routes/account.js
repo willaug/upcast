@@ -18,7 +18,8 @@ export default [
   {
     path: '/account/edit',
     name: 'EditAccount',
-    component: () => import(/* webpackChunkName: "edit_account" */ '../views/Account/EditAccount.vue')
+    component: () => import(/* webpackChunkName: "edit_account" */ '../views/Account/EditAccount.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/password-reset',
