@@ -38,12 +38,25 @@
         <ul>
           <li>
             <router-link
+              v-if="authenticated === false"
               v-wave
               :to="{ name: 'SignIn' }"
               class="auth-link"
             >
               <i class="fas fa-sign-in-alt" />
               <p>Entrar</p>
+            </router-link>
+            <router-link
+              v-else
+              v-wave
+              :to="{ name: 'Account' }"
+              class="auth-link account"
+            >
+              <img
+                :src="$api + account.photo"
+                :alt="account.username"
+              >
+              <p>{{ account.username.split(' ')[0] }}</p>
             </router-link>
           </li>
           <li>
@@ -87,6 +100,16 @@
               <p>Perfil</p>
             </router-link>
           </li>
+          <li
+            v-if="authenticated === true"
+            v-wave
+            @click="logout"
+          >
+            <div class="link-button">
+              <i class="fas fa-sign-out-alt" />
+              <p>Sair</p>
+            </div>
+          </li>
         </ul>
       </nav>
     </transition>
@@ -98,7 +121,13 @@ export default {
   data () {
     return {
       menu: false,
-      backgroundMenu: false
+      backgroundMenu: false,
+      authenticated: false
+    }
+  },
+  computed: {
+    account () {
+      return this.$store.getters.getAccount
     }
   },
   created () {
@@ -106,6 +135,16 @@ export default {
       this.menu = true
       this.backgroundMenu = false
     }
+
+    this.$store.dispatch('TokenIsValid').then(response => {
+      if (response) {
+        this.$store.dispatch('SignInWithToken').then(() => {
+          this.authenticated = true
+        })
+      } else {
+        this.authenticated = false
+      }
+    })
   },
   methods: {
     changeMenu () {
@@ -121,6 +160,12 @@ export default {
           body.style.overflow = 'auto'
         }
       }
+    },
+    logout () {
+      localStorage.removeItem('ACCESS_TOKEN')
+
+      const index = window.location.href
+      window.location.replace(index)
     }
   }
 }

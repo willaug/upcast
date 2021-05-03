@@ -82,7 +82,7 @@ nav {
       color: $gray-color;
       font-size: 16px;
       
-      a {
+      a, .link-button {
         display: block;
         font-weight: 500;
         color: $gray-color;
@@ -95,6 +95,17 @@ nav {
 
         p {
           margin-left: 38px;
+        }
+        
+        img {
+          width: 24px;
+          height: 24px;
+          object-fit: cover;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 23px;
+          border-radius: 3px;
         }
 
         .fas {
@@ -113,6 +124,12 @@ nav {
   color: $primary-color;
   font-weight: 500;
   border: 1px solid $primary-color;
+}
+
+.account {
+  color: $white-color;
+  border-color: $dark-color;
+  background-color: $dark-color;
 }
 
 .link-enabled {

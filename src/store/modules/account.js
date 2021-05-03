@@ -53,7 +53,7 @@ export default {
       const token = localStorage.getItem('ACCESS_TOKEN')
       commit('SignIn', token)
     },
-    TokenIsValid () {
+    async TokenIsValid () {
       const token = localStorage.getItem('ACCESS_TOKEN')
 
       if (token !== undefined && token !== null) {
@@ -63,9 +63,12 @@ export default {
           }
         }
 
-        Vue.prototype.$axios('/account', auth)
-          .then(() => true)
-          .catch(() => false)
+        try {
+          await Vue.prototype.$axios('/account', auth)
+          return true
+        } catch {
+          return false
+        }
       } else {
         return false
       }
