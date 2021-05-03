@@ -10,13 +10,12 @@
       >
       <img
         :src="$api + photoUrl"
-        :class="{ photoIcon: photoIcon === true }"
+        :class="{ photoIcon }"
         alt="Miniatura"
       >
       <button
         v-wave
         class="button-options"
-        :disabled="disabled"
         @click="showOptions = !showOptions"
       >
         <i class="fas fa-camera" />
@@ -38,13 +37,19 @@
           </li>
           <li
             v-wave
-            @click="showOptions = !showOptions"
+            @click="showOptions = !showOptions, deleteImage()"
           >
             <i class="fas fa-trash-alt" />
             Deletar imagem
           </li>
         </ul>
       </transition>
+    </div>
+    <div
+      v-if="error !== null"
+      class="message"
+    >
+      {{ error }}
     </div>
   </div>
 </template>
@@ -72,8 +77,7 @@ export default {
   data () {
     return {
       showOptions: false,
-      error: null,
-      disabled: false
+      error: null
     }
   },
   methods: {
@@ -88,7 +92,8 @@ export default {
     callInputFile () {
       document.getElementById('avatar').click()
     },
-    async sendImage (event) {
+    sendImage (event) {
+      const { $axios, $router, push, patchUrl } = this
       const item = event.target.files[0]
       const formData = new FormData()
       const upload = {
@@ -101,25 +106,36 @@ export default {
       formData.append('photo', item)
 
       this.error = null
-      this.disabled = true
 
-      try {
-        const { $axios, $router, push, patchUrl } = this
-        await $axios.patch(patchUrl, formData, upload)
+      $axios.patch(patchUrl, formData, upload)
+        .then(() => $router.push({ name: push }))
+        .catch(err => {
+          if (err.response) {
+            const response = err.response.data
 
-        $router.push({ name: push })
-      } catch (err) {
-        if (err.response) {
-          const response = err.response.data
+            this.error = response
+          } else {
+            this.error = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+          }
+        })
+    },
+    deleteImage () {
+      const { patchUrl, push, auth, $axios, $router } = this
+      const data = { action: 'deleteImage' }
 
-          this.error = response
-          console.log(this.error)
-        } else {
-          this.error = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
-        }
-      } finally {
-        this.disabled = false
-      }
+      this.error = null
+
+      $axios.patch(patchUrl, data, auth)
+        .then(() => $router.push({ name: push }))
+        .catch(err => {
+          if (err.response) {
+            const response = err.response.data
+
+            this.error = response
+          } else {
+            this.error = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+          }
+        })
     }
   }
 }
@@ -192,5 +208,15 @@ export default {
         }
       }
     }
+  }
+
+  .message {
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 7px;
+    color: $error-color;
+    font-size: 13px;
+    padding: 10px;
+    background: $black-color;
   }
 </style>
