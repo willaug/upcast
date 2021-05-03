@@ -59,6 +59,16 @@ body {
   color: $success-color;
 }
 
+.one-error {
+  margin: 25px 0;
+  width: 100%;
+  color: $error-color;
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 7px;
+  background: $black-color;
+}
+
 .error-list {
   margin: 25px 0;
   width: 100%;
