@@ -2,12 +2,14 @@ export default [
   {
     path: '/signup',
     name: 'SignUp',
-    component: () => import(/* webpackChunkName: "signup" */ '../views/Account/SignUp.vue')
+    component: () => import(/* webpackChunkName: "signup" */ '../views/Account/SignUp.vue'),
+    meta: { notAuth: true }
   },
   {
     path: '/login',
     name: 'SignIn',
-    component: () => import(/* webpackChunkName: "signup" */ '../views/Account/SignIn.vue')
+    component: () => import(/* webpackChunkName: "signup" */ '../views/Account/SignIn.vue'),
+    meta: { notAuth: true }
   },
   {
     path: '/account',
@@ -24,12 +26,14 @@ export default [
   {
     path: '/password-reset',
     name: 'PasswordReset',
-    component: () => import(/* webpackChunkName: "password-reset" */ '../views/Account/PasswordReset/PasswordReset.vue')
+    component: () => import(/* webpackChunkName: "password-reset" */ '../views/Account/PasswordReset/PasswordReset.vue'),
+    meta: { notAuth: true }
   },
   {
     path: '/password-reset/:passwordReset',
     name: 'AddNewPassword',
     props: true,
-    component: () => import(/* webpackChunkName: "add_new_password" */ '../views/Account/PasswordReset/AddNewPassword.vue')
+    component: () => import(/* webpackChunkName: "add_new_password" */ '../views/Account/PasswordReset/AddNewPassword.vue'),
+    meta: { notAuth: true }
   }
 ]

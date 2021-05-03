@@ -5,8 +5,9 @@
     </h1>
     <div class="photo">
       <img
+        v-if="account.photo"
         :src="$api + account.photo"
-        :class="{ photoIcon: photoIcon === true }"
+        :class="{ photoIcon: account.photo.includes('.svg') }"
         alt="Miniatura do usuário"
       >
     </div>
@@ -50,15 +51,6 @@ export default {
   },
   created () {
     this.$store.dispatch('SignInWithToken')
-  },
-  methods: {
-    photoIcon () {
-      if (this.account.photo.includes('.svg')) {
-        return true
-      } else {
-        return false
-      }
-    }
   }
 }
 </script>

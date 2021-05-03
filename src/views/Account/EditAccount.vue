@@ -74,6 +74,7 @@
         v-wave
         type="button"
         class="button-delete"
+        @click="deleteAccount"
       >
         Deletar minha conta permanentemente
       </button>
@@ -110,7 +111,7 @@ export default {
     this.$store.dispatch('SignInWithToken')
   },
   methods: {
-    async sendNewData () {
+    sendNewData () {
       const { auth, account, password, newPassword, confirmPassword, $axios, $router } = this
       const data = {}
 
@@ -137,26 +138,44 @@ export default {
         data.confirmPassword = confirmPassword
       }
 
-      try {
-        await $axios.patch('/account', data, auth)
-        $router.push({ name: 'Account' })
-      } catch (err) {
-        if (err.response) {
-          const response = err.response.data
-          const responseIsArray = Array.isArray(response)
+      $axios.patch('/account', data, auth)
+        .then(() => $router.push({ name: 'Account' }))
+        .catch(err => {
+          if (err.response) {
+            const response = err.response.data
+            const responseIsArray = Array.isArray(response)
 
-          if (responseIsArray) {
-            this.errors = response
+            if (responseIsArray) {
+              this.errors = response
+            } else {
+              this.errors.push(response)
+            }
           } else {
-            this.errors.push(response)
+            const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+            this.errors.push(message)
           }
-        } else {
-          const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
-          this.errors.push(message)
-        }
-      } finally {
-        this.disabled = false
-      }
+        })
+        .finally(() => {
+          this.disabled = false
+        })
+    },
+    deleteAccount () {
+      const { auth, $axios, $router } = this
+      this.errors = []
+
+      $axios.delete('/account', auth)
+        .then(() => {
+          localStorage.removeItem('ACCESS_TOKEN')
+          $router.push({ name: 'SignIn' })
+        }).catch(err => {
+          if (err.response) {
+            const response = err.response.data
+            this.errors.push(response)
+          } else {
+            const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+            this.errors.push(message)
+          }
+        })
     }
   }
 }

@@ -69,38 +69,40 @@ export default {
     }
   },
   methods: {
-    async login () {
+    login () {
       const { email, password, $axios } = this
       const data = { email, password }
 
       this.errors = []
       this.disabled = true
 
-      try {
-        const response = await $axios.post('/authenticate', data)
-        const token = response.data
+      $axios.post('/authenticate', data)
+        .then(response => {
+          const token = response.data
 
-        localStorage.setItem('ACCESS_TOKEN', token)
+          localStorage.setItem('ACCESS_TOKEN', token)
 
-        const index = window.location.href.split('/login')[0]
-        window.location.replace(index)
-      } catch (err) {
-        if (err.response) {
-          const response = err.response.data
-          const responseIsArray = Array.isArray(response)
+          const index = window.location.href.split('/login')[0]
+          window.location.replace(index)
+        })
+        .catch(err => {
+          if (err.response) {
+            const response = err.response.data
+            const responseIsArray = Array.isArray(response)
 
-          if (responseIsArray) {
-            this.errors = response
+            if (responseIsArray) {
+              this.errors = response
+            } else {
+              this.errors.push(response)
+            }
           } else {
-            this.errors.push(response)
+            const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+            this.errors.push(message)
           }
-        } else {
-          const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
-          this.errors.push(message)
-        }
-      } finally {
-        this.disabled = false
-      }
+        })
+        .finally(() => {
+          this.disabled = false
+        })
     }
   }
 }

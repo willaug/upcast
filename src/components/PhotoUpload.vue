@@ -9,8 +9,9 @@
         @change="sendImage"
       >
       <img
+        v-if="photoUrl"
         :src="$api + photoUrl"
-        :class="{ photoIcon }"
+        :class="{ photoIcon: photoUrl.includes('.svg') }"
         alt="Miniatura"
       >
       <button
@@ -81,14 +82,6 @@ export default {
     }
   },
   methods: {
-    photoIcon () {
-      const photo = this.account.photo
-      if (photo.includes('.svg')) {
-        return true
-      } else {
-        return false
-      }
-    },
     callInputFile () {
       document.getElementById('avatar').click()
     },

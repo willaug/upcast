@@ -69,34 +69,33 @@ export default {
     }
   },
   methods: {
-    async createUser () {
+    createUser () {
       const { email, username, password, $axios, $router } = this
       const data = { email, username, password }
 
       this.errors = []
       this.disabled = true
 
-      try {
-        await $axios.post('/users', data)
+      $axios.post('/users', data)
+        .then(() => $router.push({ name: 'SignIn' }))
+        .catch(err => {
+          if (err.response) {
+            const response = err.response.data
+            const responseIsArray = Array.isArray(response)
 
-        $router.push({ name: 'SignIn' })
-      } catch (err) {
-        if (err.response) {
-          const response = err.response.data
-          const responseIsArray = Array.isArray(response)
-
-          if (responseIsArray) {
-            this.errors = response
+            if (responseIsArray) {
+              this.errors = response
+            } else {
+              this.errors.push(response)
+            }
           } else {
-            this.errors.push(response)
+            const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+            this.errors.push(message)
           }
-        } else {
-          const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
-          this.errors.push(message)
-        }
-      } finally {
-        this.disabled = false
-      }
+        })
+        .finally(() => {
+          this.disabled = false
+        })
     }
   }
 }

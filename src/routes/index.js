@@ -58,6 +58,14 @@ router.beforeEach((to, from, next) => {
         next({ name: 'SignIn' })
       }
     })
+  } else if (to.matched.some(record => record.meta.notAuth)) {
+    store.dispatch('TokenIsValid').then(continueRoute => {
+      if (continueRoute) {
+        next({ name: 'Account' })
+      } else {
+        next()
+      }
+    })
   } else {
     next()
   }
