@@ -37,7 +37,7 @@
           <h2>Programas recentes</h2>
           <ul>
             <li
-              v-for="(show, index) in shows"
+              v-for="(show, index) in shows.slice(0, 5)"
               :key="index"
               v-wave
             >
@@ -91,7 +91,7 @@ export default {
         if (err.response) {
           this.categoryError = err.response.data
         } else {
-          this.categoryError = 'Ocorreu um erro de conexão e não conseguimos encontrar nossas categorias. Tente novamente mais tarde!'
+          this.categoryError = 'Ocorreu um erro de conexão e não conseguimos responder a solicitação de categorias. Tente novamente mais tarde!'
         }
       })
 
@@ -103,7 +103,7 @@ export default {
         if (err.response) {
           this.showError = err.response.data
         } else {
-          this.showError = 'Ocorreu um erro de conexão e não conseguimos encontrar nossos programass. Tente novamente mais tarde!'
+          this.showError = 'Ocorreu um erro de conexão e não conseguimos responder a solicitação de novos programas. Tente novamente mais tarde!'
         }
       })
   }
