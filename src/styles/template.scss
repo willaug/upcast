@@ -69,6 +69,10 @@ body {
   background: $black-color;
 }
 
+.message {
+  color: $white-color;
+}
+
 .error-list {
   margin: 25px 0;
   width: 100%;
@@ -134,11 +138,27 @@ body {
         align-items: center;
         height: 50px;
         
-        img {
+        .photo {
           width: 50px;
-          height: auto;
-          object-fit: cover;
+          height: 50px;
+          position: relative;
+
+          img {
+            width: 50px;
+            height: auto;
+            object-fit: cover;
+          }
+  
+          .photoIcon {
+            position: absolute;
+            top: 50%;
+            width: 25px;
+            height: auto;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
         }
+
 
         p {
           color: $light-color;
