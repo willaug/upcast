@@ -15,7 +15,7 @@
           class="thumbnail"
         >
           <router-link
-            :to="{ name: 'Category', params: { category: category.slug} }"
+            :to="{ name: 'Category', params: { category: category.slug } }"
             class="icon"
           >
             <img
@@ -32,18 +32,39 @@
       >
         {{ categoryError }}
       </div>
-      <h2>Programas recentes</h2>
-      <ul>
-        <li v-wave>
-          <router-link to="/teste">
-            <img
-              src="https://picsum.photos/380"
-              alt="Miniatura do programa"
+      <template v-if="showError === null || showError === undefined">
+        <template v-if="shows.length > 0">
+          <h2>Programas recentes</h2>
+          <ul>
+            <li
+              v-for="(show, index) in shows"
+              :key="index"
+              v-wave
             >
-            <p>Flow Podcast</p>
-          </router-link>
-        </li>
-      </ul>
+              <router-link :to="{ name: 'Show', params: { show: show.uid } }">
+                <div class="photo">
+                  <img
+                    :src="$api + show.url_photo"
+                    :class="{ photoIcon: show.url_photo.includes('.svg') }"
+                    :alt="show.title"
+                  >
+                </div>
+                <p>{{ show.title }}</p>
+              </router-link>
+            </li>
+          </ul>
+        </template>
+        <template v-else>
+          <div class="one-error message">
+            Ainda não há programas disponíveis.
+          </div>
+        </template>
+      </template>
+      <template v-else>
+        <div class="one-error">
+          {{ showError }}
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -56,6 +77,8 @@ export default {
   data () {
     return {
       categories: [],
+      shows: [],
+      showError: null,
       categoryError: null
     }
   },
@@ -68,7 +91,19 @@ export default {
         if (err.response) {
           this.categoryError = err.response.data
         } else {
-          this.categoryError = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+          this.categoryError = 'Ocorreu um erro de conexão e não conseguimos encontrar nossas categorias. Tente novamente mais tarde!'
+        }
+      })
+
+    this.$axios('/shows')
+      .then(result => {
+        this.shows = result.data.response
+      })
+      .catch(err => {
+        if (err.response) {
+          this.showError = err.response.data
+        } else {
+          this.showError = 'Ocorreu um erro de conexão e não conseguimos encontrar nossos programass. Tente novamente mais tarde!'
         }
       })
   }
