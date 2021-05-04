@@ -43,9 +43,6 @@
 
 <script>
 export default {
-  metaInfo: {
-    title: 'Categoria X • Upcast'
-  },
   props: {
     category: {
       type: String,
@@ -66,6 +63,8 @@ export default {
     try {
       const categoryFound = await $axios(`categories/${category}`)
       this.categoryName = categoryFound.data.response.name
+
+      document.title = `${this.categoryName} • Upcast`
 
       const showsFound = await $axios(`categories/${category}/shows`)
       this.shows = showsFound.data.response

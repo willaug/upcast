@@ -1,67 +1,161 @@
 <template>
   <div class="container content">
-    <div class="thumb-title">
-      <div class="photo">
-        <img
-          src="https://picsum.photos/340"
-          alt="Miniatura do programa"
-        >
+    <template v-if="showFound === null || showFound === undefined">
+      <div class="one-error">
+        {{ error }}
       </div>
-      <div class="thumb-content">
-        <h1 class="title">
-          WA Podcast
-        </h1>
-        <router-link to="/clovis">
-          Autoria do WA
+    </template>
+    <template v-else>
+      <div class="thumb-title">
+        <div class="photo">
+          <img
+            :src="$api + showFound.url_photo"
+            :alt="showFound.title"
+            :class="{ photoIcon: showFound.url_photo.includes('.svg') }"
+          >
+        </div>
+        <div class="thumb-content">
+          <h1 class="title">
+            {{ showFound.title }}
+          </h1>
+          <router-link :to="{ name: 'User', params: { user: showFound.author.uid } }">
+            {{ showFound.author.username }}
+          </router-link>
+        </div>
+      </div>
+      <div class="line-content">
+        <button
+          class="button-follow"
+          :class="{ following }"
+          @click="follow"
+          v-text="following ? 'Seguindo' : 'Seguir'"
+        />
+        <router-link
+          :to="{ name: 'Category', params: { category: showFound.category.slug } }"
+          class="category"
+        >
+          {{ showFound.category.name }}
         </router-link>
       </div>
-    </div>
-    <div class="line-content">
-      <button class="button-follow">
-        Seguir
-      </button>
-      <router-link
-        to="/"
-        class="category"
+      <div
+        v-if="errorFollow !== null && errorFollow !== undefined"
+        class="one-error"
       >
-        Saúde e bem estar
+        {{ error }}
+      </div>
+      <p
+        v-if="showFound.description"
+        class="about"
+      >
+        {{ showFound.description }}
+      </p>
+      <p class="created">
+        Criado em {{ showFound.createdAt | DATE }} •
+        <span v-text="followers === 0 ? 'Nenhum seguidor' : `${followers} seguidores`" />
+      </p>
+      <router-link
+        v-if="account.uid === showFound.author.uid"
+        v-wave
+        :to="{ name: 'EditShow', params: { show: showFound.uid } }"
+        class="button-edit"
+      >
+        <i class="fas fa-pencil-alt" /> Editar
       </router-link>
-    </div>
-    <p class="about">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.Vivamus dictum eu libero id gravida. Ut ac elementum lorem.
-    </p>
-    <p class="created">
-      Criado em 12/03/2021 • 30 seguidores
-    </p>
-    <router-link
-      v-wave
-      to="/a"
-      class="button-edit"
-    >
-      <i class="fas fa-pencil-alt" /> Editar
-    </router-link>
-    <div class="main-container">
-      <ul>
-        <li v-wave>
-          <router-link to="/teste">
-            <p class="just-title episode-title">
-              <i class="fas fa-play" />
-              Conversa com pessoa X no dia Y
-            </p>
-            <p class="time">
-              01:15:30
-            </p>
-          </router-link>
-        </li>
-      </ul>
-    </div>
+      <div class="main-container">
+        <ul>
+          <li v-wave>
+            <router-link to="/teste">
+              <p class="just-title episode-title">
+                <i class="fas fa-play" />
+                Conversa com pessoa X no dia Y
+              </p>
+              <p class="time">
+                01:15:30
+              </p>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
 export default {
-  metaInfo: {
-    title: 'Programa X • Upcast'
+  props: {
+    show: {
+      type: String,
+      required: true
+    }
+  },
+  data () {
+    return {
+      showFound: null,
+      followers: 0,
+      following: false,
+      error: null,
+      errorFollow: null
+    }
+  },
+  computed: {
+    auth () {
+      return this.$store.getters.getAuth
+    },
+    account () {
+      return this.$store.getters.getAccount
+    }
+  },
+  async created () {
+    try {
+      const show = await this.$axios(`/shows/${this.show}`)
+      const followers = await this.$axios(`/shows/${this.show}/followers`)
+
+      if (this.account.uid !== null && this.account.uid !== undefined) {
+        const following = await this.$axios(`/shows/${this.show}/following`, this.auth)
+        this.following = following.data.response
+      }
+
+      this.showFound = show.data.response
+      this.followers = followers.data.response
+
+      document.title = `${this.showFound.title} • Upcast`
+    } catch (err) {
+      if (err.response) {
+        this.error = err.response.data
+      } else {
+        this.error = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+      }
+    }
+  },
+  methods: {
+    async follow () {
+      if (this.account.uid !== null && this.account.uid !== undefined) {
+        try {
+          const { following, $axios, auth, showFound } = this
+
+          this.errorFollow = null
+
+          if (following) {
+            await $axios.delete(`/shows/${showFound.uid}/follow`, auth)
+          } else {
+            await $axios.post(`/shows/${showFound.uid}/follow`, {}, auth)
+          }
+
+          this.following = !following
+
+          const followers = await this.$axios(`/shows/${this.show}/followers`)
+          this.followers = followers.data.response
+        } catch (err) {
+          if (err.response) {
+            this.errorFollow = err.response.data
+          } else {
+            this.errorFollow = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+          }
+        }
+      } else {
+        this.$router.push({ name: 'SignIn' })
+      }
+    }
   }
 }
 </script>

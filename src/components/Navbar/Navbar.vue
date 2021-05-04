@@ -114,7 +114,7 @@
           <li>
             <router-link
               v-wave
-              :to="{ name: 'ShowCreate' }"
+              :to="{ name: 'CreateShow' }"
               exact-active-class="link-enabled"
             >
               <i class="fas fa-microphone" />
