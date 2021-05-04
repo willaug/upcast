@@ -110,6 +110,27 @@
               <p>Sair</p>
             </div>
           </li>
+          <hr>
+          <li>
+            <router-link
+              v-wave
+              :to="{ name: 'ShowCreate' }"
+              exact-active-class="link-enabled"
+            >
+              <i class="fas fa-microphone" />
+              <p>Criar programa</p>
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              v-wave
+              :to="{ name: 'PlaylistCreate' }"
+              exact-active-class="link-enabled"
+            >
+              <i class="fas fa-headphones" />
+              <p>Criar playlist</p>
+            </router-link>
+          </li>
         </ul>
       </nav>
     </transition>

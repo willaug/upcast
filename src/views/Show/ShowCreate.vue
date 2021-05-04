@@ -3,33 +3,72 @@
     <h1 class="title">
       Criar programa
     </h1>
-    <form class="edit-form">
-      <label for="">Título</label>
-      <input
-        type="text"
-        placeholder="Adicione um título para o programa"
-      >
-      <label for="">Descrição</label>
-      <textarea placeholder="Digite a descrição (Opcional)" />
-      <label for="">Categoria</label>
-      <div class="select">
-        <select>
-          <option
-            selected
-            disabled
-          >
-            Escolha a categoria
-          </option>
-        </select>
+    <template v-if="categoryError !== null && categoryError !== undefined">
+      <div class="one-error">
+        {{ categoryError }}
       </div>
-      <button
-        v-wave
-        type="button"
-        class="button-edit-form"
-      >
-        Enviar
-      </button>
-    </form>
+    </template>
+    <template v-else>
+      <form class="edit-form">
+        <label for="title">Título</label>
+        <input
+          id="title"
+          v-model="title"
+          type="text"
+          placeholder="Adicione um título para o programa"
+        >
+        <label for="description">Descrição</label>
+        <textarea
+          id="description"
+          v-model="description"
+          placeholder="Digite a descrição (Opcional)"
+        />
+        <label for="category">Categoria</label>
+        <div class="select">
+          <select
+            id="category"
+            v-model="selectedCategory"
+          >
+            <option
+              disabled
+              value=""
+            >
+              Escolha a categoria
+            </option>
+            <option
+              v-for="(category, index) in categories"
+              :key="index"
+              :value="category.id"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+        <button
+          v-wave
+          type="button"
+          class="button-edit-form"
+          @click="sendShow"
+        >
+          Enviar
+        </button>
+        <transition
+          name="fade"
+        >
+          <ul
+            v-if="errors.length > 0"
+            class="error-list"
+          >
+            <li
+              v-for="(error, index) in errors"
+              :key="index"
+            >
+              {{ error }}
+            </li>
+          </ul>
+        </transition>
+      </form>
+    </template>
   </div>
 </template>
 
@@ -37,6 +76,62 @@
 export default {
   metaInfo: {
     title: 'Criar programa • Upcast'
+  },
+  data () {
+    return {
+      categories: [],
+      categoryError: null,
+      errors: [],
+      title: null,
+      selectedCategory: '',
+      description: null
+    }
+  },
+  computed: {
+    auth () {
+      return this.$store.getters.getAuth
+    }
+  },
+  created () {
+    this.$axios('/categories')
+      .then(result => {
+        this.categories = result.data.response
+      })
+      .catch(err => {
+        if (err.response) {
+          this.categoryError = err.response.data
+        } else {
+          this.categoryError = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+        }
+      })
+  },
+  methods: {
+    sendShow () {
+      const { title, selectedCategory, description, $axios, $router, auth } = this
+      const data = { title, category: selectedCategory }
+
+      if (description !== null && description !== undefined) {
+        data.description = description
+      }
+
+      $axios.post('/shows', data, auth)
+        .then(() => $router.push({ name: 'User', params: { user: this.$store.getters.getAccount.uid } }))
+        .catch(err => {
+          if (err.response) {
+            const response = err.response.data
+            const responseIsArray = Array.isArray(response)
+
+            if (responseIsArray) {
+              this.errors = response
+            } else {
+              this.errors.push(response)
+            }
+          } else {
+            const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+            this.errors.push(message)
+          }
+        })
+    }
   }
 }
 </script>
