@@ -1,7 +1,7 @@
 @import './variables.scss';
 
 .shows {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   font-size: 17px;
   font-weight: 600;
   font-family: $poppins;
@@ -21,7 +21,7 @@
 .button-play {
   position: relative;
   left: 50%;
-  margin: 60px 0 30px 0;
+  margin: 80px 0 30px 0;
   transform: translateX(-50%);
   font-size: 50px;
   width: 90px;
