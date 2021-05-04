@@ -1,8 +1,9 @@
 export default [
   {
     path: '/episodes/create',
-    name: 'EpisodeCreate',
-    component: () => import(/* webpackChunkName: "episode_create" */ '../views/Episode/EpisodeCreate.vue')
+    name: 'CreateEpisode',
+    component: () => import(/* webpackChunkName: "episode_create" */ '../views/Episode/CreateEpisode.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/episodes/:episode',
@@ -14,6 +15,7 @@ export default [
     path: '/episodes/:episode/edit',
     name: 'EditEpisode',
     props: true,
-    component: () => import(/* webpackChunkName: "edit_episode" */ '../views/Episode/EditEpisode.vue')
+    component: () => import(/* webpackChunkName: "edit_episode" */ '../views/Episode/EditEpisode.vue'),
+    meta: { requiresAuth: true }
   }
 ]

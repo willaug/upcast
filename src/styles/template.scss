@@ -242,6 +242,7 @@ body {
   .thumb-content {
     margin-left: 20px;
     color: $light-color;
+    max-width: calc(100% - 120px);
 
     h1 {
       margin: 0;

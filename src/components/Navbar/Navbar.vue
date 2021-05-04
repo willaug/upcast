@@ -89,48 +89,59 @@
               <p>Buscar</p>
             </router-link>
           </li>
-          <hr>
-          <li>
-            <router-link
+          <template v-if="authenticated === true">
+            <hr>
+            <li>
+              <router-link
+                v-wave
+                to="/users/x"
+                exact-active-class="link-enabled"
+              >
+                <i class="fas fa-user" />
+                <p>Perfil</p>
+              </router-link>
+            </li>
+            <li
               v-wave
-              to="/users/x"
-              exact-active-class="link-enabled"
+              @click="logout"
             >
-              <i class="fas fa-user" />
-              <p>Perfil</p>
-            </router-link>
-          </li>
-          <li
-            v-if="authenticated === true"
-            v-wave
-            @click="logout"
-          >
-            <div class="link-button">
-              <i class="fas fa-sign-out-alt" />
-              <p>Sair</p>
-            </div>
-          </li>
-          <hr>
-          <li>
-            <router-link
-              v-wave
-              :to="{ name: 'CreateShow' }"
-              exact-active-class="link-enabled"
-            >
-              <i class="fas fa-microphone" />
-              <p>Criar programa</p>
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              v-wave
-              :to="{ name: 'PlaylistCreate' }"
-              exact-active-class="link-enabled"
-            >
-              <i class="fas fa-headphones" />
-              <p>Criar playlist</p>
-            </router-link>
-          </li>
+              <div class="link-button">
+                <i class="fas fa-sign-out-alt" />
+                <p>Sair</p>
+              </div>
+            </li>
+            <hr>
+            <li>
+              <router-link
+                v-wave
+                :to="{ name: 'CreateEpisode' }"
+                exact-active-class="link-enabled"
+              >
+                <i class="fas fa-forward" />
+                <p>Enviar episódio</p>
+              </router-link>
+            </li>
+            <li>
+              <router-link
+                v-wave
+                :to="{ name: 'CreateShow' }"
+                exact-active-class="link-enabled"
+              >
+                <i class="fas fa-microphone" />
+                <p>Criar programa</p>
+              </router-link>
+            </li>
+            <li>
+              <router-link
+                v-wave
+                :to="{ name: 'PlaylistCreate' }"
+                exact-active-class="link-enabled"
+              >
+                <i class="fas fa-headphones" />
+                <p>Criar playlist</p>
+              </router-link>
+            </li>
+          </template>
         </ul>
       </nav>
     </transition>

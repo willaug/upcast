@@ -140,15 +140,15 @@ export default {
     async follow () {
       if (this.account.uid !== null && this.account.uid !== undefined) {
         try {
-          const { following, $axios, auth, showFound } = this
+          const { following, $axios, auth, show } = this
 
           this.errorFollow = null
 
           if (following) {
-            await $axios.delete(`/shows/${showFound.uid}/follow`, auth)
+            await $axios.delete(`/shows/${show}/follow`, auth)
             --this.followers
           } else {
-            await $axios.post(`/shows/${showFound.uid}/follow`, {}, auth)
+            await $axios.post(`/shows/${show}/follow`, {}, auth)
             ++this.followers
           }
 
