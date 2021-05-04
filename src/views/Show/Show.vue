@@ -41,13 +41,12 @@
         v-if="errorFollow !== null && errorFollow !== undefined"
         class="one-error"
       >
-        {{ error }}
+        {{ errorFollow }}
       </div>
       <p
-        v-if="showFound.description"
         class="about"
       >
-        {{ showFound.description }}
+        {{ showFound.description || 'Sem descrição' }}
       </p>
       <p class="created">
         Criado em {{ showFound.createdAt | DATE }} •
@@ -61,21 +60,31 @@
       >
         <i class="fas fa-pencil-alt" /> Editar
       </router-link>
-      <div class="main-container">
-        <ul>
-          <li v-wave>
-            <router-link to="/teste">
-              <p class="just-title episode-title">
-                <i class="fas fa-play" />
-                Conversa com pessoa X no dia Y
-              </p>
-              <p class="time">
-                01:15:30
-              </p>
-            </router-link>
-          </li>
-        </ul>
-      </div>
+      <template v-if="showFound.episodes.length > 0">
+        <div class="main-container">
+          <ul
+            v-for="(episode, index) in showFound.episodes"
+            :key="index"
+          >
+            <li v-wave>
+              <router-link :to="{ name: 'Episode', params: { episode: episode.uid } }">
+                <p class="just-title episode-title">
+                  <i class="fas fa-play" />
+                  {{ episode.title }}
+                </p>
+                <p class="time">
+                  {{ episode.duration }}
+                </p>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </template>
+      <template v-else>
+        <div class="one-error message">
+          Ainda não há episódios neste programa.
+        </div>
+      </template>
     </template>
   </div>
 </template>
@@ -137,14 +146,13 @@ export default {
 
           if (following) {
             await $axios.delete(`/shows/${showFound.uid}/follow`, auth)
+            --this.followers
           } else {
             await $axios.post(`/shows/${showFound.uid}/follow`, {}, auth)
+            ++this.followers
           }
 
           this.following = !following
-
-          const followers = await this.$axios(`/shows/${this.show}/followers`)
-          this.followers = followers.data.response
         } catch (err) {
           if (err.response) {
             this.errorFollow = err.response.data

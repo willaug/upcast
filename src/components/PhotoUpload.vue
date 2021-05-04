@@ -70,6 +70,10 @@ export default {
       type: String,
       required: true
     },
+    pushParams: {
+      type: Object,
+      default: null
+    },
     auth: {
       type: Object,
       required: true
@@ -113,13 +117,19 @@ export default {
         })
     },
     deleteImage () {
-      const { patchUrl, push, auth, $axios, $router } = this
+      const { patchUrl, push, pushParams, auth, $axios, $router } = this
       const data = { action: 'deleteImage' }
 
       this.error = null
 
       $axios.patch(patchUrl, data, auth)
-        .then(() => $router.push({ name: push }))
+        .then(() => {
+          if (pushParams !== null) {
+            $router.push({ name: push, params: pushParams })
+          } else {
+            $router.push({ name: push })
+          }
+        })
         .catch(err => {
           if (err.response) {
             const response = err.response.data
