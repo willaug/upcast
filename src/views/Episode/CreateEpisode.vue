@@ -89,15 +89,12 @@ export default {
     }
   },
   computed: {
-    account () {
-      return this.$store.getters.getAccount
-    },
     auth () {
       return this.$store.getters.getAuth
     }
   },
   created () {
-    this.$axios(`/users/${this.account.uid}/shows`)
+    this.$axios(`/users/${this.$getUid()}/shows`)
       .then(result => {
         this.shows = result.data.response
       })

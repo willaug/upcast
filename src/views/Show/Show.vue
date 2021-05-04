@@ -53,7 +53,7 @@
         <span v-text="followers === 0 ? 'Nenhum seguidor' : `${followers} seguidores`" />
       </p>
       <router-link
-        v-if="account.uid === showFound.author.uid"
+        v-if="$getUid() === showFound.author.uid"
         v-wave
         :to="{ name: 'EditShow', params: { show: showFound.uid } }"
         class="button-edit"
@@ -109,17 +109,15 @@ export default {
   computed: {
     auth () {
       return this.$store.getters.getAuth
-    },
-    account () {
-      return this.$store.getters.getAccount
     }
   },
   async created () {
     try {
       const show = await this.$axios(`/shows/${this.show}`)
       const followers = await this.$axios(`/shows/${this.show}/followers`)
+      const user = this.$getUid()
 
-      if (this.account.uid !== null && this.account.uid !== undefined) {
+      if (user !== null && user !== undefined) {
         const following = await this.$axios(`/shows/${this.show}/following`, this.auth)
         this.following = following.data.response
       }
@@ -138,7 +136,9 @@ export default {
   },
   methods: {
     async follow () {
-      if (this.account.uid !== null && this.account.uid !== undefined) {
+      const user = this.$getUid()
+
+      if (user !== null && user !== undefined) {
         try {
           const { following, $axios, auth, show } = this
 
