@@ -37,6 +37,10 @@ body {
   margin-bottom: 30px;
 }
 
+.mb-1 {
+  margin-bottom: 10px;
+}
+
 .container {
   position: relative;
   left: 50%;
@@ -132,7 +136,7 @@ body {
       margin-top: 12px;
       background: $dark-color;
       
-      a {
+      a, .playlist-item {
         display: flex;
         position: relative;
         align-items: center;

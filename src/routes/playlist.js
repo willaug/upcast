@@ -1,8 +1,9 @@
 export default [
   {
     path: '/playlists/create',
-    name: 'PlaylistCreate',
-    component: () => import(/* webpackChunkName: "playlist_create" */ '../views/Playlist/PlaylistCreate.vue')
+    name: 'CreatePlaylist',
+    component: () => import(/* webpackChunkName: "playlist_create" */ '../views/Playlist/CreatePlaylist.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/playlists/:playlist',
@@ -14,6 +15,7 @@ export default [
     path: '/playlists/:playlist/edit',
     name: 'EditPlaylist',
     props: true,
-    component: () => import(/* webpackChunkName: "playlist_edit" */ '../views/Playlist/EditPlaylist.vue')
+    component: () => import(/* webpackChunkName: "playlist_edit" */ '../views/Playlist/EditPlaylist.vue'),
+    meta: { requiresAuth: true }
   }
 ]

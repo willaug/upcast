@@ -1,43 +1,81 @@
 <template>
   <div class="container content">
-    <h1 class="title">
-      Playlist
-    </h1>
-    <p class="about">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.Vivamus dictum eu libero id gravida. Ut ac elementum lorem.
-    </p>
-    <p class="created">
-      Criado em 12/03/2021 • Alterado em 13/04/2021
-    </p>
-    <router-link
-      v-wave
-      to="/a"
-      class="button-edit"
-    >
-      <i class="fas fa-pencil-alt" /> Editar
-    </router-link>
-    <div class="main-container">
-      <ul>
-        <li v-wave>
-          <router-link to="/teste">
-            <p class="just-title episode-title">
-              <i class="fas fa-play" />
-              Conversa com pessoa X no dia Y
-            </p>
-            <p class="time">
-              01:15:30
-            </p>
-          </router-link>
-        </li>
-      </ul>
-    </div>
+    <template v-if="playlistFound === null || playlistFound === undefined">
+      <div class="one-error">
+        {{ errorGetPlaylist }}
+      </div>
+    </template>
+    <template v-else>
+      <h1 class="title mb-1">
+        {{ playlistFound.title }}
+      </h1>
+      <p class="created">
+        Criado em {{ playlistFound.createdAt | DATE }} • Alterado em {{ playlistFound.updatedAt | DATE }}
+      </p>
+      <router-link
+        v-if="playlistFound.author.uid === $getUid()"
+        v-wave
+        :to="{ name: 'EditPlaylist', params: { playlist } }"
+        class="button-edit"
+      >
+        <i class="fas fa-pencil-alt" /> Editar
+      </router-link>
+      <template v-if="playlistFound.episodes.length > 0">
+        <div class="main-container">
+          <ul
+            v-for="(episode, index) in playlistFound.episodes"
+            :key="index"
+          >
+            <li v-wave>
+              <router-link :to="{ name: 'Episode', params: { episode: episode.uid } }">
+                <p class="just-title episode-title">
+                  <i class="fas fa-play" />
+                  {{ episode.title }}
+                </p>
+                <p class="time">
+                  {{ episode.duration }}
+                </p>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </template>
+      <template v-else>
+        <div class="one-error message">
+          Ainda não há episódios nesta playlist.
+        </div>
+      </template>
+    </template>
   </div>
 </template>
 
 <script>
 export default {
-  metaInfo: {
-    title: 'Playlist X • Upcast'
+  props: {
+    playlist: {
+      type: String,
+      required: true
+    }
+  },
+  data () {
+    return {
+      playlistFound: null,
+      errorGetPlaylist: null
+    }
+  },
+  created () {
+    this.$axios(`/playlists/${this.playlist}`)
+      .then(result => {
+        this.playlistFound = result.data.response
+        document.title = `${this.playlistFound.title} • ${this.playlistFound.author.username} • Upcast`
+      })
+      .catch(err => {
+        if (err.response) {
+          this.errorGetEpisode = err.response.data
+        } else {
+          this.errorGetEpisode = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+        }
+      })
   }
 }
 </script>
