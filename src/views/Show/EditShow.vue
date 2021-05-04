@@ -130,6 +130,8 @@ export default {
       const category = document.querySelector('#category').value
       const data = { title: showFound.title, description: showFound.description, category }
 
+      this.errors = []
+
       $axios.patch(`shows/${show}`, data, auth)
         .then(() => $router.push({ name: 'Show', params: { show } }))
         .catch(err => {
@@ -149,7 +151,11 @@ export default {
         })
     },
     deleteShow () {
-      console.log('deletar')
+      const { show, auth, $router, $axios } = this
+
+      $axios.delete(`/shows/${show}`, auth)
+        .then(() => $router.push({ name: 'Home' }))
+        .catch(() => $router.push({ name: 'Show', params: { show } }))
     }
   }
 }
