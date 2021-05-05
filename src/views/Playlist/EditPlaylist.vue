@@ -42,12 +42,21 @@
         </transition>
         <hr>
         <template v-if="playlistFound.episodes.length > 0">
+          <transition
+            name="fade"
+          >
+            <div
+              v-if="itemRemoved !== null && itemRemoved !== undefined"
+              :class="itemRemoved.class === 'success' ? 'success' : 'one-error'"
+            >
+              {{ itemRemoved.message }}
+            </div>
+          </transition>
           <div class="main-container">
             <ul>
               <li
                 v-for="(episode, index) in playlistFound.episodes"
                 :key="index"
-                v-wave
               >
                 <div class="playlist-item">
                   <p class="just-title episode-title">
@@ -55,8 +64,10 @@
                     {{ episode.title }}
                   </p>
                   <button
+                    v-wave
                     type="button"
                     class="button-remove-item"
+                    @click="deleteItem(index, episode.playlist_item.id)"
                   >
                     <i class="fas fa-times" />
                   </button>
@@ -96,6 +107,7 @@ export default {
       playlistFound: null,
       errorGetPlaylist: null,
       errorEpisodes: null,
+      itemRemoved: null,
       errors: []
     }
   },
@@ -155,6 +167,37 @@ export default {
           } else {
             this.errorGetPlaylist = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
           }
+        })
+    },
+    deleteItem (episode, id) {
+      const { playlist, auth, $axios } = this
+
+      $axios.delete(`/playlists/${playlist}/item/${id}`, auth)
+        .then(result => {
+          this.itemRemoved = { message: result.data.response, class: 'success' }
+
+          setTimeout(() => {
+            this.playlistFound.episodes.splice(episode, 1)
+          }, 500)
+
+          setTimeout(() => {
+            this.itemRemoved = null
+          }, 1300)
+        })
+        .catch(err => {
+          let message
+
+          if (err.response) {
+            message = err.response.data
+          } else {
+            message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+          }
+
+          this.itemRemoved = { message, class: 'error' }
+
+          setTimeout(() => {
+            this.itemRemoved = null
+          }, 1300)
         })
     }
   }

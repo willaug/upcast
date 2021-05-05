@@ -118,8 +118,12 @@ export default {
       const user = this.$getUid()
 
       if (user !== null && user !== undefined) {
-        const following = await this.$axios(`/shows/${this.show}/following`, this.auth)
-        this.following = following.data.response
+        const checkFollowing = await this.$store.dispatch('TokenIsValid')
+
+        if (checkFollowing) {
+          const following = await this.$axios(`/shows/${this.show}/following`, this.auth)
+          this.following = following.data.response
+        }
       }
 
       this.showFound = show.data.response

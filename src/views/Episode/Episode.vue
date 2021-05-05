@@ -17,16 +17,32 @@
           • {{ episodeFound.createdAt | DATE }} • {{ episodeFound.duration }}
         </p>
         <p class="about">
-          {{ episodeFound.description || 'Sem descrição' }}
+          {{ episodeFound.description || 'Sem descrição.' }}
         </p>
-        <router-link
-          v-if="author"
-          v-wave
-          :to="{ name: 'EditEpisode', params: { episode } }"
-          class="button-edit"
+        <div class="line-actions">
+          <router-link
+            v-if="author"
+            v-wave
+            :to="{ name: 'EditEpisode', params: { episode } }"
+            class="button-edit"
+          >
+            <i class="fas fa-pencil-alt" /> Editar
+          </router-link>
+          <button
+            v-if="$getUid() !== null && $getUid() !== undefined && playlists.length > 0"
+            v-wave
+            class="button-edit ml-1"
+            @click="showPlaylists = true"
+          >
+            <i class="fas fa-share" /> Salvar na playlist
+          </button>
+        </div>
+        <div
+          v-if="errorAddEpisode !== null"
+          class="one-error"
         >
-          <i class="fas fa-pencil-alt" /> Editar
-        </router-link>
+          {{ errorAddEpisode }}
+        </div>
         <button
           v-if="episodeFound.url_audio !== null"
           v-wave
@@ -41,12 +57,29 @@
         >
           O episódio está em fase de processamento. Aguarde.
         </div>
+        <transition name="fade">
+          <div
+            v-if="showPlaylists"
+            class="component"
+          >
+            <div
+              v-for="(playlist, index) in playlists"
+              :key="index"
+              v-wave
+              class="playlist-item"
+              @click="showPlaylists = false, addEpisodeInPlaylist(playlist.uid)"
+            >
+              <i class="fas fa-plus" /> {{ playlist.title }}
+            </div>
+          </div>
+        </transition>
       </template>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     episode: {
@@ -58,6 +91,9 @@ export default {
     return {
       episodeFound: null,
       errorGetEpisode: null,
+      errorAddEpisode: null,
+      showPlaylists: false,
+      playlists: [],
       author: false
     }
   },
@@ -79,12 +115,37 @@ export default {
       } else {
         this.author = false
       }
+
+      if (this.$getUid() !== null && this.$getUid() !== undefined) {
+        const res = await this.$axios(`/users/${this.$getUid()}/playlists`)
+        this.playlists = res.data.response
+      }
     } catch (err) {
       if (err.response) {
         this.errorGetEpisode = err.response.data
       } else {
         this.errorGetEpisode = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
       }
+    }
+  },
+  methods: {
+    addEpisodeInPlaylist (playlist) {
+      const { episode, auth, $axios } = this
+      const data = { episode }
+
+      this.errorAddEpisode = null
+
+      $axios.post(`/playlists/${playlist}/item`, data, auth)
+        .then(() => {
+          this.showPlaylists = false
+        })
+        .catch(err => {
+          if (err.response) {
+            this.errorAddEpisode = err.response.data
+          } else {
+            this.errorAddEpisode = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
+          }
+        })
     }
   }
 }

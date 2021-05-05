@@ -134,7 +134,7 @@
             <li>
               <router-link
                 v-wave
-                :to="{ name: 'PlaylistCreate' }"
+                :to="{ name: 'CreatePlaylist' }"
                 exact-active-class="link-enabled"
               >
                 <i class="fas fa-headphones" />

@@ -33,3 +33,37 @@
   text-align: center;
   height: 90px;
 }
+
+.line-actions {
+  display: flex;
+}
+
+.component {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  z-index: 3000;
+  background: $light-color;
+  width: 240px;
+  padding: 10px 0;
+  border-radius: 7px;
+
+  .playlist-item {
+    background: $light-color;
+    border: none;
+    text-align: left;
+    padding: 7px 15px;
+    color: $black-color;
+    border-radius: 0;
+    overflow: hidden;
+    cursor: pointer;
+    white-space: nowrap;
+    max-width: 100%;
+    text-overflow: ellipsis;
+
+    .fas {
+      margin-right: 10px;
+    }
+  }
+}
