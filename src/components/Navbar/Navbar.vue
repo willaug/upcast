@@ -94,7 +94,7 @@
             <li>
               <router-link
                 v-wave
-                to="/users/x"
+                :to="{ name: 'User', params: { user: $getUid() } }"
                 exact-active-class="link-enabled"
               >
                 <i class="fas fa-user" />
