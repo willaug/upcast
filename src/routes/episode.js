@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export default [
   {
     path: '/episodes/create',
@@ -16,6 +18,29 @@ export default [
     name: 'EditEpisode',
     props: true,
     component: () => import(/* webpackChunkName: "edit_episode" */ '../views/Episode/EditEpisode.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    beforeEnter: (to, from, next) => {
+      const { $getUid, $axios } = Vue.prototype
+      const episode = to.params.episode
+      const user = $getUid()
+
+      $axios(`/episodes/${episode}`)
+        .then(result => {
+          const showUid = result.data.response.show.uid
+
+          $axios(`/shows/${showUid}`)
+            .then(res => {
+              const authorUid = res.data.response.author.uid
+
+              if (authorUid === user) {
+                next()
+              } else {
+                next({ name: 'Episode', params: { episode } })
+              }
+            })
+            .catch(() => next({ name: 'Episode', params: { episode } }))
+        })
+        .catch(() => next({ name: 'Episode', params: { episode } }))
+    }
   }
 ]

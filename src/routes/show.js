@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export default [
   {
     path: '/shows/create',
@@ -16,6 +18,23 @@ export default [
     name: 'EditShow',
     props: true,
     component: () => import(/* webpackChunkName: "edit_show" */ '../views/Show/EditShow.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    beforeEnter: (to, from, next) => {
+      const { $getUid, $axios } = Vue.prototype
+      const show = to.params.show
+      const user = $getUid()
+
+      $axios(`/shows/${show}`)
+        .then(result => {
+          const showFound = result.data.response
+
+          if (showFound.author.uid === user) {
+            next()
+          } else {
+            next({ name: 'Show', params: { show } })
+          }
+        })
+        .catch(() => next({ name: 'Show', params: { show } }))
+    }
   }
 ]
