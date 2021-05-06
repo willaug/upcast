@@ -39,24 +39,20 @@
           Programas
         </button>
       </div>
-      <div class="main-container">
-        <ul>
-          <li v-wave>
-            <router-link to="/teste">
-              <p class="just-title episode-title">
-                <i class="fas fa-play" />
-                Minha playlist
-              </p>
-            </router-link>
-          </li>
-        </ul>
-      </div>
+      <user-content
+        :type="content.type"
+        :url="content.url"
+        :user="user"
+      />
     </template>
   </div>
 </template>
 
 <script>
+import UserContent from '../components/UserContent'
+
 export default {
+  components: { UserContent },
   props: {
     user: {
       type: String,
@@ -66,6 +62,7 @@ export default {
   data () {
     return {
       userFound: null,
+      content: { type: 'playlist', url: 'playlists' },
       showPlaylists: true,
       error: null
     }
@@ -86,9 +83,11 @@ export default {
   methods: {
     playlists () {
       this.showPlaylists = true
+      this.content = { type: 'playlist', url: 'playlists' }
     },
     shows () {
       this.showPlaylists = false
+      this.content = { type: 'show', url: 'shows' }
     }
   }
 }
