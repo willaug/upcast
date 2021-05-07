@@ -1,50 +1,52 @@
 <template>
-  <div class="container content">
-    <template v-if="userFound === null || userFound === undefined">
-      <div class="one-error">
-        {{ error }}
-      </div>
-    </template>
-    <template v-else>
-      <div class="thumb-title">
-        <div class="photo">
-          <img
-            :src="$api + userFound.url_photo"
-            :alt="userFound.username"
-            :class="{ photoIcon: userFound.url_photo.includes('.svg') }"
+  <div class="full-container">
+    <div class="container content">
+      <template v-if="userFound === null || userFound === undefined">
+        <div class="one-error">
+          {{ error }}
+        </div>
+      </template>
+      <template v-else>
+        <div class="thumb-title">
+          <div class="photo">
+            <img
+              :src="$api + userFound.url_photo"
+              :alt="userFound.username"
+              :class="{ photoIcon: userFound.url_photo.includes('.svg') }"
+            >
+          </div>
+          <div class="thumb-content">
+            <h1 class="title">
+              {{ userFound.username }}
+            </h1>
+          </div>
+        </div>
+        <p class="created">
+          Criado em {{ userFound.createdAt | DATE }}
+        </p>
+        <div class="options">
+          <button
+            v-wave
+            :class="{ selected: showPlaylists }"
+            @click="playlists"
           >
+            Playlists
+          </button>
+          <button
+            v-wave
+            :class="{ selected: !showPlaylists }"
+            @click="shows"
+          >
+            Programas
+          </button>
         </div>
-        <div class="thumb-content">
-          <h1 class="title">
-            {{ userFound.username }}
-          </h1>
-        </div>
-      </div>
-      <p class="created">
-        Criado em {{ userFound.createdAt | DATE }}
-      </p>
-      <div class="options">
-        <button
-          v-wave
-          :class="{ selected: showPlaylists }"
-          @click="playlists"
-        >
-          Playlists
-        </button>
-        <button
-          v-wave
-          :class="{ selected: !showPlaylists }"
-          @click="shows"
-        >
-          Programas
-        </button>
-      </div>
-      <user-content
-        :type="content.type"
-        :url="content.url"
-        :user="user"
-      />
-    </template>
+        <user-content
+          :type="content.type"
+          :url="content.url"
+          :user="user"
+        />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -112,10 +114,28 @@ export default {
     border-radius: 0;
     background: transparent;
     color: $white-color;
+    cursor: pointer;
   }
 
   .selected {
     border-bottom: 2px solid $white-color;
   }
+}
+
+@media (min-width: 1024px) {
+  .options {
+    margin: 40px 0 60px 0;
+
+    button {
+      font-size: 16px;
+      border-bottom: 3px solid transparent;
+      height: 45px;
+    }
+
+    .selected {
+      border-bottom: 3px solid $white-color;
+    }
+  }
+
 }
 </style>
