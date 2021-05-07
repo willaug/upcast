@@ -1,51 +1,53 @@
 <template>
-  <div class="container content">
-    <template v-if="playlistFound === null || playlistFound === undefined">
-      <div class="one-error">
-        {{ errorGetPlaylist }}
-      </div>
-    </template>
-    <template v-else>
-      <h1 class="title mb-1">
-        {{ playlistFound.title }}
-      </h1>
-      <p class="created">
-        Criado em {{ playlistFound.createdAt | DATE }} • Alterado em {{ playlistFound.updatedAt | DATE }}
-      </p>
-      <router-link
-        v-if="playlistFound.author.uid === $getUid()"
-        v-wave
-        :to="{ name: 'EditPlaylist', params: { playlist } }"
-        class="button-edit"
-      >
-        <i class="fas fa-pencil-alt" /> Editar
-      </router-link>
-      <template v-if="playlistFound.episodes.length > 0">
-        <div class="main-container">
-          <ul
-            v-for="(episode, index) in playlistFound.episodes"
-            :key="index"
-          >
-            <li v-wave>
-              <router-link :to="{ name: 'Episode', params: { episode: episode.uid } }">
-                <p class="just-title episode-title">
-                  <i class="fas fa-play" />
-                  {{ episode.title }}
-                </p>
-                <p class="time">
-                  {{ episode.duration }}
-                </p>
-              </router-link>
-            </li>
-          </ul>
+  <div class="full-container">
+    <div class="container content">
+      <template v-if="playlistFound === null || playlistFound === undefined">
+        <div class="one-error">
+          {{ errorGetPlaylist }}
         </div>
       </template>
       <template v-else>
-        <div class="one-error message">
-          Ainda não há episódios nesta playlist.
-        </div>
+        <h1 class="title mb-1">
+          {{ playlistFound.title }}
+        </h1>
+        <p class="created">
+          Criado em {{ playlistFound.createdAt | DATE }} • Alterado em {{ playlistFound.updatedAt | DATE }}
+        </p>
+        <router-link
+          v-if="playlistFound.author.uid === $getUid()"
+          v-wave
+          :to="{ name: 'EditPlaylist', params: { playlist } }"
+          class="button-edit"
+        >
+          <i class="fas fa-pencil-alt" /> Editar
+        </router-link>
+        <template v-if="playlistFound.episodes.length > 0">
+          <div class="main-container">
+            <ul
+              v-for="(episode, index) in playlistFound.episodes"
+              :key="index"
+            >
+              <li v-wave>
+                <router-link :to="{ name: 'Episode', params: { episode: episode.uid } }">
+                  <p class="just-title episode-title">
+                    <i class="fas fa-play" />
+                    {{ episode.title }}
+                  </p>
+                  <p class="time">
+                    {{ episode.duration }}
+                  </p>
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </template>
+        <template v-else>
+          <div class="one-error message">
+            Ainda não há episódios nesta playlist.
+          </div>
+        </template>
       </template>
-    </template>
+    </div>
   </div>
 </template>
 

@@ -22,16 +22,20 @@
   position: relative;
   left: 50%;
   margin: 80px 0 30px 0;
+  padding: 10px 30px;
   transform: translateX(-50%);
-  font-size: 50px;
-  width: 90px;
-  display: block;
-  border-radius: 90px;
-  color: $primary-color;
+  font-size: 18px;
+  border-radius: 7px;
+  color: $light-color;
+  letter-spacing: .5px;
+  font-family: $poppins;
+  background-image: linear-gradient(to right, $primary-color, $pink-color);
   cursor: pointer;
-  background: transparent;
   text-align: center;
-  height: 90px;
+
+  .fas {
+    margin-right: 10px;
+  }
 }
 
 .line-actions {
@@ -64,6 +68,50 @@
 
     .fas {
       margin-right: 10px;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .shows {
+    margin-top: -40px;
+    margin-bottom: 0px;
+    font-size: 20px;
+  }
+
+  .about {
+    margin: 60px 0 30px 0;
+    font-size: 18px;
+  }
+
+  .button-play {
+    left: auto;
+    margin: 80px 0 30px 0;
+    padding: 12px 38px;
+    transform: translateX(0);
+    font-size: 20px;
+    border-radius: 10px;
+    letter-spacing: .8px;
+  
+    .fas {
+      margin-right: 17px;
+    }
+  }
+
+  .component {
+    left: 0;
+    transform: translate(0, 0);
+    transform: translateY(-50%);
+    width: 300px;
+    padding: 20px 0;
+    border-radius: 10px;
+  
+    .playlist-item {
+      padding: 10px 20px;
+  
+      .fas {
+        margin-right: 16px;
+      }
     }
   }
 }

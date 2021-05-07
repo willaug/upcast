@@ -1,79 +1,83 @@
 <template>
-  <div class="container content">
-    <div class="main-container">
-      <template v-if="episodeFound === null || episodeFound === undefined">
-        <div class="one-error">
-          {{ errorGetEpisode }}
-        </div>
-      </template>
-      <template v-else>
-        <h1 class="title">
-          {{ episodeFound.title }}
-        </h1>
-        <p class="shows">
-          <router-link :to="{ name: 'Show', params: { show: episodeFound.show.uid } }">
-            {{ episodeFound.show.title }}
-          </router-link>
-          • {{ episodeFound.createdAt | DATE }} • {{ episodeFound.duration }}
-        </p>
-        <p class="about">
-          {{ episodeFound.description || 'Sem descrição.' }}
-        </p>
-        <div class="line-actions">
-          <router-link
-            v-if="author"
-            v-wave
-            :to="{ name: 'EditEpisode', params: { episode } }"
-            class="button-edit"
-          >
-            <i class="fas fa-pencil-alt" /> Editar
-          </router-link>
-          <button
-            v-if="$getUid() !== null && $getUid() !== undefined && playlists.length > 0"
-            v-wave
-            class="button-edit ml-1"
-            @click="showPlaylists = true"
-          >
-            <i class="fas fa-share" /> Salvar na playlist
-          </button>
-        </div>
-        <div
-          v-if="errorAddEpisode !== null"
-          class="one-error"
-        >
-          {{ errorAddEpisode }}
-        </div>
-        <button
-          v-if="episodeFound.url_audio !== null"
-          v-wave
-          type="button"
-          class="button-play"
-        >
-          <i class="fas fa-play" />
-        </button>
-        <div
-          v-else
-          class="one-error message"
-        >
-          O episódio está em fase de processamento. Aguarde.
-        </div>
-        <transition name="fade">
-          <div
-            v-if="showPlaylists"
-            class="component"
-          >
-            <div
-              v-for="(playlist, index) in playlists"
-              :key="index"
-              v-wave
-              class="playlist-item"
-              @click="showPlaylists = false, addEpisodeInPlaylist(playlist.uid)"
-            >
-              <i class="fas fa-plus" /> {{ playlist.title }}
-            </div>
+  <div class="full-container">
+    <div class="container content">
+      <div class="main-container">
+        <template v-if="episodeFound === null || episodeFound === undefined">
+          <div class="one-error">
+            {{ errorGetEpisode }}
           </div>
-        </transition>
-      </template>
+        </template>
+        <template v-else>
+          <h1 class="title">
+            {{ episodeFound.title }}
+          </h1>
+          <p class="shows">
+            <router-link :to="{ name: 'Show', params: { show: episodeFound.show.uid } }">
+              {{ episodeFound.show.title }}
+            </router-link>
+            • {{ episodeFound.createdAt | DATE }} • {{ episodeFound.duration }}
+          </p>
+          <p class="about">
+            {{ episodeFound.description || 'Sem descrição.' }}
+          </p>
+          <div class="line-actions">
+            <router-link
+              v-if="author"
+              v-wave
+              :to="{ name: 'EditEpisode', params: { episode } }"
+              class="button-edit"
+            >
+              <i class="fas fa-pencil-alt" /> Editar
+            </router-link>
+            <button
+              v-if="$getUid() !== null && $getUid() !== undefined && playlists.length > 0"
+              v-wave
+              class="button-edit"
+              :class="{ 'ml-1': author === true }"
+              @click="showPlaylists = true"
+            >
+              <i class="fas fa-share" /> Salvar na playlist
+            </button>
+          </div>
+          <div
+            v-if="errorAddEpisode !== null"
+            class="one-error"
+          >
+            {{ errorAddEpisode }}
+          </div>
+          <button
+            v-if="episodeFound.url_audio !== null"
+            v-wave
+            type="button"
+            class="button-play"
+          >
+            <i class="fas fa-play" />
+            Reproduzir
+          </button>
+          <div
+            v-else
+            class="one-error message"
+          >
+            O episódio está em fase de processamento. Aguarde.
+          </div>
+          <transition name="fade">
+            <div
+              v-if="showPlaylists"
+              class="component"
+            >
+              <div
+                v-for="(playlist, index) in playlists"
+                :key="index"
+                v-wave
+                class="playlist-item"
+                @click="showPlaylists = false, addEpisodeInPlaylist(playlist.uid)"
+              >
+                <i class="fas fa-plus" /> {{ playlist.title }}
+              </div>
+            </div>
+          </transition>
+        </template>
+      </div>
     </div>
   </div>
 </template>

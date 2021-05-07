@@ -73,6 +73,7 @@ export default {
     this.$axios(`/users/${this.user}`)
       .then(result => {
         this.userFound = result.data.response
+        document.title = `${result.data.response.username} • Upcast`
       })
       .catch(err => {
         if (err.response) {

@@ -302,7 +302,7 @@ body {
   .content {
     margin-top: 50px;
   }
-  
+
   .success, .one-error {
     margin: 20px 0;
     font-size: 15px;
@@ -408,16 +408,16 @@ body {
     margin-bottom: 30px;
   
     .photo {
-      width: 130px;
-      height: 130px;
+      width: 150px;
+      height: 150px;
       border-radius: 10px;
   
       img {
-        width: 130px;
+        width: 150px;
       }
   
       .photoIcon {
-        width: 60px;
+        width: 70px;
       }
     }
   
@@ -439,5 +439,16 @@ body {
     img {
       margin-left: 20px;
     }
+  }
+
+  .button-edit {
+    border: 2px solid $dark-color;
+    padding: 8px 20px;
+    font-size: 15px;
+    margin: 0 0 30px 0;
+  }
+
+  .ml-1 {
+    margin-left: 18px;
   }
 }
