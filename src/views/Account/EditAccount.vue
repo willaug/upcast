@@ -15,8 +15,8 @@
           <label for="name">Nome</label>
           <input
             id="name"
-            v-model="account.username"
             type="text"
+            :value="account.username"
             placeholder="Digite seu nome"
           >
         </div>
@@ -126,12 +126,13 @@ export default {
     sendNewData () {
       const { auth, account, password, newPassword, confirmPassword, $axios, $router } = this
       const data = {}
+      const username = document.querySelector('#name').value
 
       this.errors = []
       this.disabled = true
 
-      if (account.username !== undefined && account.username !== null) {
-        data.username = account.username
+      if (username !== undefined && username !== null) {
+        data.username = username
       }
 
       if (account.email !== undefined && account.email !== null) {
@@ -166,6 +167,8 @@ export default {
             const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
             this.errors.push(message)
           }
+
+          window.scrollTo(0, document.body.scrollHeight)
         })
         .finally(() => {
           this.disabled = false

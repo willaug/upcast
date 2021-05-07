@@ -1,40 +1,44 @@
 <template>
-  <div class="container content">
-    <h1 class="title">
-      Criar playlist
-    </h1>
-    <form class="edit-form">
-      <label for="title">Título</label>
-      <input
-        id="title"
-        v-model="title"
-        type="text"
-        placeholder="Adicione um título para a playlist"
-      >
-      <button
-        v-wave
-        type="button"
-        class="button-edit-form"
-        @click="sendPlaylist"
-      >
-        Criar
-      </button>
-      <transition
-        name="fade"
-      >
-        <ul
-          v-if="errors.length > 0"
-          class="error-list"
-        >
-          <li
-            v-for="(error, index) in errors"
-            :key="index"
+  <div class="full-container">
+    <div class="container content">
+      <h1 class="title">
+        Criar playlist
+      </h1>
+      <form class="edit-form">
+        <div class="label-input">
+          <label for="title">Título</label>
+          <input
+            id="title"
+            v-model="title"
+            type="text"
+            placeholder="Adicione um título para a playlist"
           >
-            {{ error }}
-          </li>
-        </ul>
-      </transition>
-    </form>
+        </div>
+        <button
+          v-wave
+          type="button"
+          class="button-edit-form"
+          @click="sendPlaylist"
+        >
+          Criar
+        </button>
+        <transition
+          name="fade"
+        >
+          <ul
+            v-if="errors.length > 0"
+            class="error-list"
+          >
+            <li
+              v-for="(error, index) in errors"
+              :key="index"
+            >
+              {{ error }}
+            </li>
+          </ul>
+        </transition>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -77,6 +81,8 @@ export default {
             const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
             this.errors.push(message)
           }
+
+          window.scrollTo(0, document.body.scrollHeight)
         })
     }
   }

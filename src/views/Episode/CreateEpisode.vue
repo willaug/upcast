@@ -1,75 +1,83 @@
 <template>
-  <div class="container content">
-    <h1 class="title">
-      Criar episódio
-    </h1>
-    <template v-if="showError !== null && showError !== undefined">
-      <div class="one-error">
-        {{ showError }}
-      </div>
-    </template>
-    <template v-else>
-      <form class="edit-form">
-        <label for="title">Título</label>
-        <input
-          id="title"
-          v-model="title"
-          type="text"
-          placeholder="Adicione um título para o episódio"
-        >
-        <label for="description">Descrição</label>
-        <textarea
-          id="description"
-          v-model="description"
-          placeholder="Digite a descrição (Opcional)"
-        />
-        <label for="show">Programa</label>
-        <div class="select">
-          <select
-            id="show"
-            v-model="selectedShow"
-          >
-            <option
-              selected
-              disabled
-              value=""
-            >
-              Escolha o programa
-            </option>
-            <option
-              v-for="(show, index) in shows"
-              :key="index"
-              :value="show.uid"
-            >
-              {{ show.title }}
-            </option>
-          </select>
+  <div class="full-container">
+    <div class="container content">
+      <h1 class="title">
+        Criar episódio
+      </h1>
+      <template v-if="showError !== null && showError !== undefined">
+        <div class="one-error">
+          {{ showError }}
         </div>
-        <button
-          v-wave
-          type="button"
-          class="button-edit-form"
-          @click="sendEpisode"
-        >
-          Enviar
-        </button>
-        <transition
-          name="fade"
-        >
-          <ul
-            v-if="errors.length > 0"
-            class="error-list"
-          >
-            <li
-              v-for="(error, index) in errors"
-              :key="index"
+      </template>
+      <template v-else>
+        <form class="edit-form">
+          <div class="label-input">
+            <label for="title">Título</label>
+            <input
+              id="title"
+              v-model="title"
+              type="text"
+              placeholder="Adicione um título para o episódio"
             >
-              {{ error }}
-            </li>
-          </ul>
-        </transition>
-      </form>
-    </template>
+          </div>
+          <div class="label-input">
+            <label for="description">Descrição</label>
+            <textarea
+              id="description"
+              v-model="description"
+              placeholder="Digite a descrição (Opcional)"
+            />
+          </div>
+          <div class="label-input">
+            <label for="show">Programa</label>
+            <div class="select">
+              <select
+                id="show"
+                v-model="selectedShow"
+              >
+                <option
+                  selected
+                  disabled
+                  value=""
+                >
+                  Escolha o programa
+                </option>
+                <option
+                  v-for="(show, index) in shows"
+                  :key="index"
+                  :value="show.uid"
+                >
+                  {{ show.title }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <button
+            v-wave
+            type="button"
+            class="button-edit-form"
+            @click="sendEpisode"
+          >
+            Enviar
+          </button>
+          <transition
+            name="fade"
+          >
+            <ul
+              v-if="errors.length > 0"
+              class="error-list"
+            >
+              <li
+                v-for="(error, index) in errors"
+                :key="index"
+              >
+                {{ error }}
+              </li>
+            </ul>
+          </transition>
+        </form>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -134,6 +142,8 @@ export default {
           const message = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
           this.errors.push(message)
         }
+
+        window.scrollTo(0, document.body.scrollHeight)
       }
     }
   }
