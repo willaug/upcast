@@ -32,4 +32,12 @@ export default {
   font-size: 16px;
 }
 
+@media (min-width: 1024px) {
+  .warning {
+    font-size: 20px;
+    padding: 30px;
+      border-radius: 20px;
+  }
+}
+
 </style>

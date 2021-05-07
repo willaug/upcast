@@ -220,4 +220,52 @@ export default {
     padding: 10px;
     background: $black-color;
   }
+
+  @media (min-width: 1024px) {
+    .photo {
+      width: 190px;
+      height: 190px;
+      border-radius: 10px;
+
+      img {
+        width: 190px;
+        height: 190px;
+        border-radius: 10px;
+      }
+
+      .button-options {
+        right: -15px;
+        bottom: -15px;
+        font-size: 25px;
+        width: 55px;
+        height: 55px;
+      }
+
+      .list-options {
+        bottom: -40px;
+        left: 50%;
+        width: 250px;
+        border-radius: 8px;
+
+        li {
+          font-size: 14px;
+
+          .fas {
+            margin-right: 17px;
+          }
+        }
+      }
+    }
+
+    .message {
+      max-width: 750px;
+      left: 50%;
+      position: relative;
+      transform: translateX(-50%);
+      margin: 60px 0;
+      border-radius: 10px;
+      font-size: 15px;
+      padding: 20px;
+    }
+  }
 </style>

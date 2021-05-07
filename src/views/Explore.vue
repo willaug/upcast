@@ -1,70 +1,72 @@
 <template>
-  <div class="container content">
-    <div class="main-container">
-      <h1 class="title">
-        Explorar
-      </h1>
-      <ul
-        v-if="categories.length > 0"
-        class="pb-4 thumbnail-list"
-      >
-        <li
-          v-for="(category, index) in categories"
-          :key="index"
-          v-wave
-          class="thumbnail"
+  <div class="full-container">
+    <div class="container content">
+      <div class="main-container">
+        <h1 class="title">
+          Explorar
+        </h1>
+        <ul
+          v-if="categories.length > 0"
+          class="pb-4 thumbnail-list"
         >
-          <router-link
-            :to="{ name: 'Category', params: { category: category.slug } }"
-            class="icon"
+          <li
+            v-for="(category, index) in categories"
+            :key="index"
+            v-wave
+            class="thumbnail"
           >
-            <img
-              :src="$api + category.icon"
-              :alt="category.name"
+            <router-link
+              :to="{ name: 'Category', params: { category: category.slug } }"
+              class="icon"
             >
-            <p>{{ category.name }}</p>
-          </router-link>
-        </li>
-      </ul>
-      <div
-        v-else
-        class="one-error"
-      >
-        {{ categoryError }}
-      </div>
-      <template v-if="showError === null || showError === undefined">
-        <template v-if="shows.length > 0">
-          <h2>Programas recentes</h2>
-          <ul>
-            <li
-              v-for="(show, index) in shows.slice(0, 5)"
-              :key="index"
-              v-wave
-            >
-              <router-link :to="{ name: 'Show', params: { show: show.uid } }">
-                <div class="photo">
-                  <img
-                    :src="$api + show.url_photo"
-                    :class="{ photoIcon: show.url_photo.includes('.svg') }"
-                    :alt="show.title"
-                  >
-                </div>
-                <p>{{ show.title }}</p>
-              </router-link>
-            </li>
-          </ul>
+              <img
+                :src="$api + category.icon"
+                :alt="category.name"
+              >
+              <p>{{ category.name }}</p>
+            </router-link>
+          </li>
+        </ul>
+        <div
+          v-else
+          class="one-error"
+        >
+          {{ categoryError }}
+        </div>
+        <template v-if="showError === null || showError === undefined">
+          <template v-if="shows.length > 0">
+            <h2>Programas recentes</h2>
+            <ul>
+              <li
+                v-for="(show, index) in shows.slice(0, 5)"
+                :key="index"
+                v-wave
+              >
+                <router-link :to="{ name: 'Show', params: { show: show.uid } }">
+                  <div class="photo">
+                    <img
+                      :src="$api + show.url_photo"
+                      :class="{ photoIcon: show.url_photo.includes('.svg') }"
+                      :alt="show.title"
+                    >
+                  </div>
+                  <p>{{ show.title }}</p>
+                </router-link>
+              </li>
+            </ul>
+          </template>
+          <template v-else>
+            <div class="one-error message">
+              Ainda não há programas disponíveis.
+            </div>
+          </template>
         </template>
         <template v-else>
-          <div class="one-error message">
-            Ainda não há programas disponíveis.
+          <div class="one-error">
+            {{ showError }}
           </div>
         </template>
-      </template>
-      <template v-else>
-        <div class="one-error">
-          {{ showError }}
-        </div>
-      </template>
+      </div>
     </div>
   </div>
 </template>
