@@ -38,6 +38,13 @@
         </div>
       </template>
     </div>
+    <a
+      class="credits"
+      href="https://github.com/willaug"
+      target="_blank"
+    >
+      Feito com <strong><i class="fas fa-heart" /></strong> por William Augusto
+    </a>
   </div>
 </template>
 
@@ -68,3 +75,21 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import '../styles/variables.scss';
+
+  .credits {
+    font-size: 15px;
+    margin-top: 70px;
+    text-align: center;
+    color: $gray-color;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+  }
+
+  strong {
+    color: $primary-color;
+  }
+</style>

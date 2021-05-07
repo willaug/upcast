@@ -3,6 +3,7 @@
     <div class="photo">
       <input
         id="avatar"
+        ref="avatar"
         type="file"
         accept="image/png, image/jpeg, image/jpg"
         style="display: none"
@@ -31,7 +32,7 @@
         >
           <li
             v-wave
-            @click="showOptions = !showOptions, callInputFile()"
+            @click="showOptions = !showOptions, $refs.avatar.click()"
           >
             <i class="fas fa-upload" />
             Adicionar imagem
@@ -86,9 +87,6 @@ export default {
     }
   },
   methods: {
-    callInputFile () {
-      document.getElementById('avatar').click()
-    },
     sendImage (event) {
       const { $axios, $router, push, patchUrl } = this
       const item = event.target.files[0]
