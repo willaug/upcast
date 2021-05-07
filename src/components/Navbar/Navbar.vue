@@ -79,16 +79,6 @@
               <p>Explorar</p>
             </router-link>
           </li>
-          <li>
-            <router-link
-              v-wave
-              to="/search"
-              exact-active-class="link-enabled"
-            >
-              <i class="fas fa-search" />
-              <p>Buscar</p>
-            </router-link>
-          </li>
           <template v-if="authenticated === true">
             <hr>
             <li>
