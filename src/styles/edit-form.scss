@@ -130,13 +130,16 @@
     }
   }
 
+  .send-audio {
+    margin-bottom: 50px;
+  }
+
   .upload {
     width: 100%;
     height: 60px;
     position: relative;
     border-radius: 7px;
     border: 3px dashed $dark-color;
-    margin-bottom: 30px;
     user-select: none;
     cursor: pointer;
     font-size: 27px;
@@ -145,14 +148,17 @@
     color: $dark-color;
 
     .fas {
-      line-height: 60px;
-      margin-left: 15px;
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
     }
+
     p {
       font-size: 15px;
       color: $white-color;
       font-weight: 500;
-      margin-left: 20px;
+      margin-left: 75px;
     }
   }
 }
@@ -199,16 +205,12 @@
     }
   
     .button-remove-item {
-      background: $bg-color;
-      color: $white-color;
-      font-size: 10px;
-      width: 25px;
-      height: 25px;
-      position: absolute;
-      border-radius: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 12px;
+      font-size: 14px;
+      width: 35px;
+      height: 35px;
+      border-radius: 20px;
+      right: 20px;
+      cursor: pointer;
     }  
   
     input[type=text], input[type=password], input[type=email], textarea {
@@ -227,6 +229,30 @@
   
       select {
         font-size: 16px;
+      }
+    }
+
+    .send-audio {
+      margin-bottom: 60px;
+    }
+  
+    .upload {
+      height: 100px;
+      border-radius: 10px;
+      border-width: 5px;
+      font-size: 40px;
+      line-height: 100px;
+  
+      .fas {
+        left: 30px;
+      }
+
+      p {
+        font-size: 21px;
+        font-weight: 500;
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
       }
     }
   }

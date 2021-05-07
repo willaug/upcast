@@ -1,96 +1,101 @@
 <template>
-  <div class="container content">
-    <template v-if="playlistFound === null || playlistFound === undefined">
-      <div class="one-error message">
-        {{ errorGetPlaylist }}
-      </div>
-    </template>
-    <template v-else>
-      <h1 class="title">
-        Editar playlist
-      </h1>
-      <form class="edit-form">
-        <label for="title">Título</label>
-        <input
-          id="title"
-          v-model="playlistFound.title"
-          type="text"
-          placeholder="Alterar o título da playlist"
-        >
-        <button
-          v-wave
-          type="button"
-          class="button-edit-form"
-          @click="updatePlaylist"
-        >
-          Salvar
-        </button>
-        <transition
-          name="fade"
-        >
-          <ul
-            v-if="errors.length > 0"
-            class="error-list"
-          >
-            <li
-              v-for="(error, index) in errors"
-              :key="index"
+  <div class="full-container">
+    <div class="container content">
+      <template v-if="playlistFound === null || playlistFound === undefined">
+        <div class="one-error message">
+          {{ errorGetPlaylist }}
+        </div>
+      </template>
+      <template v-else>
+        <h1 class="title">
+          Editar playlist
+        </h1>
+        <form class="edit-form">
+          <div class="label-input">
+            <label for="title">Título</label>
+            <input
+              id="title"
+              v-model="playlistFound.title"
+              type="text"
+              placeholder="Alterar o título da playlist"
             >
-              {{ error }}
-            </li>
-          </ul>
-        </transition>
-        <hr>
-        <template v-if="playlistFound.episodes.length > 0">
+          </div>
+          <button
+            v-wave
+            type="button"
+            class="button-edit-form"
+            @click="updatePlaylist"
+          >
+            Salvar
+          </button>
           <transition
             name="fade"
           >
-            <div
-              v-if="itemRemoved !== null && itemRemoved !== undefined"
-              :class="itemRemoved.class === 'success' ? 'success' : 'one-error'"
+            <ul
+              v-if="errors.length > 0"
+              class="error-list"
             >
-              {{ itemRemoved.message }}
-            </div>
-          </transition>
-          <div class="main-container">
-            <ul>
               <li
-                v-for="(episode, index) in playlistFound.episodes"
+                v-for="(error, index) in errors"
                 :key="index"
               >
-                <div class="playlist-item">
-                  <p class="just-title episode-title">
-                    <i class="fas fa-play" />
-                    {{ episode.title }}
-                  </p>
-                  <button
-                    v-wave
-                    type="button"
-                    class="button-remove-item"
-                    @click="deleteItem(index, episode.playlist_item.id)"
-                  >
-                    <i class="fas fa-times" />
-                  </button>
-                </div>
+                {{ error }}
               </li>
             </ul>
-          </div>
-        </template>
-        <template v-else>
-          <div class="one-error message">
-            Ainda não há episódios nesta playlist.
-          </div>
-        </template>
-        <button
-          v-wave
-          type="button"
-          class="button-delete"
-          @click="deletePlaylist"
-        >
-          Deletar playlist
-        </button>
-      </form>
-    </template>
+          </transition>
+          <hr>
+          <template v-if="playlistFound.episodes.length > 0">
+            <transition
+              name="fade"
+            >
+              <div
+                v-if="itemRemoved !== null && itemRemoved !== undefined"
+                :class="itemRemoved.class === 'success' ? 'success' : 'one-error'"
+              >
+                {{ itemRemoved.message }}
+              </div>
+            </transition>
+            <div class="main-container">
+              <ul>
+                <li
+                  v-for="(episode, index) in playlistFound.episodes"
+                  :key="index"
+                >
+                  <div class="playlist-item">
+                    <p class="just-title episode-title">
+                      <i class="fas fa-play" />
+                      {{ episode.title }}
+                    </p>
+                    <button
+                      v-wave
+                      type="button"
+                      class="button-remove-item"
+                      @click="deleteItem(index, episode.playlist_item.id)"
+                    >
+                      <i class="fas fa-times" />
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </template>
+          <template v-else>
+            <div class="one-error message">
+              Ainda não há episódios nesta playlist.
+            </div>
+          </template>
+          <button
+            v-wave
+            type="button"
+            class="button-delete"
+            @click="deletePlaylist"
+          >
+            Deletar playlist
+          </button>
+        </form>
+      </template>
+    </div>
+
   </div>
 </template>
 
