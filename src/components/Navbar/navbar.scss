@@ -185,3 +185,15 @@ nav {
 .slide-leave-active{
     animation: slide-out .8s ease;
 }
+
+
+// media
+@media (min-width: 1024px) {
+  header {
+    display: none;
+  }
+
+  .auth-link {
+    border-width: 2px;
+  }
+}
