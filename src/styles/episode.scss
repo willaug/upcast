@@ -26,6 +26,7 @@
   transform: translateX(-50%);
   font-size: 18px;
   border-radius: 7px;
+  transition: all .8s ease;
   color: $light-color;
   letter-spacing: .5px;
   font-family: $poppins;
@@ -36,6 +37,11 @@
   .fas {
     margin-right: 10px;
   }
+
+}
+
+.listening {
+  filter: grayscale(100%)
 }
 
 .line-actions {

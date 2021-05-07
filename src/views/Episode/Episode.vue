@@ -50,6 +50,7 @@
             v-wave
             type="button"
             class="button-play"
+            @click="playAudio"
           >
             <i class="fas fa-play" />
             Reproduzir
@@ -150,6 +151,13 @@ export default {
             this.errorAddEpisode = 'Ocorreu um erro de conexão. Tente novamente mais tarde!'
           }
         })
+    },
+    playAudio () {
+      const url = this.$api + this.episodeFound.url_audio
+      const title = this.episodeFound.title
+      const audio = { title, url }
+
+      this.$store.commit('listenAudio', audio)
     }
   }
 }

@@ -56,7 +56,7 @@
                 :src="$api + account.photo"
                 :alt="account.username"
               >
-              <p>{{ account.username.split(' ')[0] }}</p>
+              <p>{{ account.username }}</p>
             </router-link>
           </li>
           <li>
