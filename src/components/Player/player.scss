@@ -74,9 +74,21 @@
         width: 35px;
     
         &::after {
+          font-size: 35px;
           font-family: fontAwesome;
           content: '\f04b';
+          color: $light-color;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .playing {
+        &::after {
           font-size: 35px;
+          font-family: fontAwesome;
+          content: '\f04c';
           color: $light-color;
           left: 50%;
           top: 50%;
@@ -136,6 +148,14 @@
     }
     
     &::-moz-range-thumb {
+      width: 12px;
+      border-radius: 12px;
+      height: 12px;
+      background: $white-color;
+      cursor: pointer;
+    }
+
+    &::-ms-thumb {
       width: 12px;
       border-radius: 12px;
       height: 12px;

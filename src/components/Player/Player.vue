@@ -1,10 +1,8 @@
 <template>
   <div class="player-container">
-    <!-- <audio
-      src="http://127.0.0.1:3000/audios/YMw8qEIK9tdmDm9ZzStk.mp3"
-    /> -->
     <button
       class="button-close"
+      title="Fechar"
     >
       <i class="fas fa-times" />
     </button>
@@ -16,12 +14,16 @@
     </p>
     <div class="centralized-buttons">
       <button
+        title="Volume"
         class="button-sound"
       >
         <i class="fas fa-volume-down" />
       </button>
       <button
+        title="Executar/Pausar"
         class="button-player"
+        :class="{ playing }"
+        @click="toggleSound"
       />
     </div>
     <div class="range-slider">
@@ -30,9 +32,10 @@
       </p>
       <input
         type="range"
+        placeholder="Minutagem"
       >
       <p>
-        01:10:20
+        02:10:30
       </p>
     </div>
   </div>
@@ -40,7 +43,33 @@
 
 <script>
 export default {
+  data () {
+    return {
+      audio: {
+        duration: undefined,
+        content: undefined,
+        volume: 0.1,
+        src: 'http://127.0.0.1:3000/audios/YMw8qEIK9tdmDm9ZzStk.mp3'
+      },
+      playing: false
+    }
+  },
+  created () {
+    this.audio.content = new Audio(this.audio.src)
+    this.audio.content.volume = this.audio.volume
+    this.audio.content.loop = false
+  },
+  methods: {
+    toggleSound () {
+      if (this.playing === false) {
+        this.audio.content.play()
+      } else {
+        this.audio.content.pause()
+      }
 
+      this.playing = !this.playing
+    }
+  }
 }
 </script>
 
