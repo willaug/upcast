@@ -3,6 +3,7 @@
     <button
       class="button-close"
       title="Fechar"
+      @click="close"
     >
       <i class="fas fa-times" />
     </button>
@@ -75,7 +76,7 @@ export default {
     return {
       audio: undefined,
       audioInfo: {
-        volume: 0,
+        volume: 0.1,
         currentTime: 0
       },
       showVolumeRange: false,
@@ -85,9 +86,13 @@ export default {
       }
     }
   },
+  computed: {
+    playInfo () {
+      return this.$store.getters.getAudio
+    }
+  },
   created () {
-    const src = 'http://127.0.0.1:3000/audios/YMw8qEIK9tdmDm9ZzStk.mp3' // apagar depois
-    this.audio = new Audio(src)
+    this.audio = new Audio(this.playInfo.src)
     this.audio.volume = this.audioInfo.volume
     this.audio.loop = false
 
@@ -107,6 +112,9 @@ export default {
       }
     }
   },
+  destroyed () {
+    this.audio.pause()
+  },
   methods: {
     toggleSound () {
       if (this.playing) {
@@ -119,6 +127,9 @@ export default {
     },
     changeVolume () {
       this.audio.volume = this.audioInfo.volume
+    },
+    close () {
+      this.$store.commit('listenAudio', {})
     }
   }
 }

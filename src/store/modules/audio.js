@@ -1,9 +1,6 @@
 export default {
   state: {
-    audio: {
-      title: null,
-      url: null
-    }
+    audio: {}
   },
   mutations: {
     listenAudio (state, audio) {

@@ -13,6 +13,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+button {
+  cursor: pointer;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s;
 }

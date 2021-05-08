@@ -50,10 +50,12 @@
             v-wave
             type="button"
             class="button-play"
+            :class="{ listening: playInfo.uid === episodeFound.uid }"
+            :disabled="playInfo.uid === episodeFound.uid"
             @click="playAudio"
           >
             <i class="fas fa-play" />
-            Reproduzir
+            {{ playInfo.uid === episodeFound.uid ? 'Reproduzindo' : 'Reproduzir' }}
           </button>
           <div
             v-else
@@ -105,6 +107,9 @@ export default {
   computed: {
     auth () {
       return this.$store.getters.getAuth
+    },
+    playInfo () {
+      return this.$store.getters.getAudio
     }
   },
   async created () {
@@ -153,11 +158,14 @@ export default {
         })
     },
     playAudio () {
-      const url = this.$api + this.episodeFound.url_audio
-      const title = this.episodeFound.title
-      const audio = { title, url }
+      const { episodeFound, $api } = this
+      const title = episodeFound.title
+      const uid = episodeFound.uid
+      const show = episodeFound.show.title
+      const src = $api + episodeFound.url_audio
+      const data = { uid, title, show, src }
 
-      this.$store.commit('listenAudio', audio)
+      this.$store.commit('listenAudio', data)
     }
   }
 }
