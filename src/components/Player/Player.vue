@@ -33,6 +33,7 @@
         <transition name="fade">
           <input
             v-if="showVolumeRange"
+            v-model.number="audioInfo.volume"
             class="volume-range"
             type="range"
             placeholder="Volume"
@@ -55,13 +56,11 @@
         {{ audioInfo.currentTime | DURATION }}
       </p>
       <input
-        v-model="audioInfo.currentTime"
+        v-model.number="audio.currentTime"
         type="range"
         placeholder="Minutagem"
-        step="1"
         min="0"
         :max="seekbar.max"
-        @change="changeCurrentTime"
       >
       <p>
         {{ seekbar.max | DURATION }}
@@ -76,7 +75,7 @@ export default {
     return {
       audio: undefined,
       audioInfo: {
-        volume: 0.1,
+        volume: 0,
         currentTime: 0
       },
       showVolumeRange: false,
@@ -119,10 +118,7 @@ export default {
       this.playing = !this.playing
     },
     changeVolume () {
-      this.audioInfo.volume = this.audio.volume
-    },
-    changeCurrentTime () {
-      this.audio.currentTime = this.audioInfo.currentTime
+      this.audio.volume = this.audioInfo.volume
     }
   }
 }
