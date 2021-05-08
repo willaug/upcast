@@ -80,7 +80,7 @@ export default {
         currentTime: 0
       },
       showVolumeRange: false,
-      playing: false,
+      playing: true,
       seekbar: {
         max: undefined
       }
@@ -102,6 +102,7 @@ export default {
     this.audio = new Audio(this.playInfo.src)
     this.audio.volume = this.audioInfo.volume
     this.audio.loop = false
+    this.audio.play()
 
     this.audio.onloadeddata = () => {
       this.seekbar.max = this.audio.duration

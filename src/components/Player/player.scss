@@ -202,5 +202,12 @@
       }
     }
   }
+}
 
+@media (min-width: 1024px) {
+  .player-container {
+    right: 20px;
+    left: auto;
+    transform: translateX(0);
+  }
 }
