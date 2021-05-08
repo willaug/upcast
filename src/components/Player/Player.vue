@@ -8,10 +8,10 @@
       <i class="fas fa-times" />
     </button>
     <p class="episode-title">
-      Meu episódio
+      {{ playInfo.title }}
     </p>
     <p class="episode-show">
-      MyCast
+      {{ playInfo.show }}
     </p>
     <div class="centralized-buttons">
       <button
@@ -89,6 +89,13 @@ export default {
   computed: {
     playInfo () {
       return this.$store.getters.getAudio
+    }
+  },
+  watch: {
+    playInfo () {
+      this.audio.src = this.playInfo.src
+      this.playing = true
+      this.audio.play()
     }
   },
   created () {
