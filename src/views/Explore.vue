@@ -38,7 +38,7 @@
             <h2>Programas recentes</h2>
             <ul>
               <li
-                v-for="(show, index) in shows.slice(0, 5)"
+                v-for="(show, index) in shows.slice(0, 6)"
                 :key="index"
                 v-wave
               >

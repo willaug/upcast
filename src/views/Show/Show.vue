@@ -63,11 +63,12 @@
         </router-link>
         <template v-if="showFound.episodes.length > 0">
           <div class="main-container">
-            <ul
-              v-for="(episode, index) in showFound.episodes"
-              :key="index"
-            >
-              <li v-wave>
+            <ul>
+              <li
+                v-for="(episode, index) in showFound.episodes"
+                :key="index"
+                v-wave
+              >
                 <router-link :to="{ name: 'Episode', params: { episode: episode.uid } }">
                   <p class="just-title episode-title">
                     <i class="fas fa-play" />

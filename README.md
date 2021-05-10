@@ -1,19 +1,17 @@
-# upcast
+<p align="center">
+  <img src=".github/logo.svg" height="80px" alt="Upcast">
+</p>
+<br>
+<br>
 
-## Project setup
-```
-yarn install
-```
+# Upcast
+Este repositório faz parte do projeto Upcast, uma plataforma fictícia de podcasts, semelhante ao Spotify e que foi construído com o uso da API [Upcast](https://github.com/willaug/upcast-api).
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+<br>
 
-### Compiles and minifies for production
-```
-yarn build
-```
+![ScreenCapture](.github/screencapture.png)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<br>
+<br>
+
+## Visão geral

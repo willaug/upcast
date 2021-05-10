@@ -1,5 +1,8 @@
 <template>
-  <form class="form-container">
+  <form
+    class="form-container"
+    @submit.prevent="createUser"
+  >
     <router-link :to="{ name: 'Home' }">
       <img
         src="/icons/logo.svg"
@@ -24,9 +27,8 @@
     >
     <button
       v-wave
-      type="button"
+      type="submit"
       :disabled="disabled"
-      @click="createUser"
     >
       Continuar
     </button>
